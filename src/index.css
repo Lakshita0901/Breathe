@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  .fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+  .slide-up {
+    animation: slideUp 0.5s ease-out forwards;
+  }
+  .breathe-glow {
+    animation: breatheGlow 3s ease-in-out infinite;
+  }
+  .score-appear {
+    animation: scoreAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .breathe-pulse {
+    animation: breathePulse 2.5s ease-in-out infinite;
+  }
+  .stagger-1 { animation-delay: 0.1s; opacity: 0; }
+  .stagger-2 { animation-delay: 0.2s; opacity: 0; }
+  .stagger-3 { animation-delay: 0.3s; opacity: 0; }
+  .stagger-4 { animation-delay: 0.4s; opacity: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes breatheGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(29, 158, 117, 0.15), 0 0 60px rgba(29, 158, 117, 0.05);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(29, 158, 117, 0.25), 0 0 80px rgba(29, 158, 117, 0.1);
+  }
+}
+
+@keyframes scoreAppear {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes breathePulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(0.97);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
