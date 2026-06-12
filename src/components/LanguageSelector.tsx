@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { CountryCode } from '../data/countries';
 import countries from '../data/countries';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface Props {
   countryCode: CountryCode;
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export default function LanguageSelector({ countryCode, onSelect, onBack }: Props) {
+  const { t } = useLanguage();
   const country = countries[countryCode];
   const [selected, setSelected] = useState<string | null>(null);
 
@@ -21,14 +23,14 @@ export default function LanguageSelector({ countryCode, onSelect, onBack }: Prop
           aria-label="Go back to country selection"
           className="text-gray-400 hover:text-gray-600 text-sm mb-6 flex items-center gap-1 mx-auto transition-colors"
         >
-          <ArrowLeft size={14} /> Back
+          <ArrowLeft size={14} /> {t('ls_back')}
         </button>
         <p className="text-4xl mb-3">{country.flag}</p>
         <h1 className="text-2xl sm:text-3xl font-semibold text-gray-800 mb-2">
-          Choose your language
+          {t('ls_chooseLanguage')}
         </h1>
         <p className="text-gray-400 text-sm mb-8">
-          Your insights will feel personal, in your own words.
+          {t('ls_insightsPersonal')}
         </p>
         <div className="space-y-3 mb-8">
           {country.languages.map((lang) => (
@@ -56,7 +58,7 @@ export default function LanguageSelector({ countryCode, onSelect, onBack }: Prop
               : 'bg-gray-100 text-gray-300 cursor-not-allowed'
           }`}
         >
-          Continue
+          {t('ls_continue')}
         </button>
       </div>
     </div>

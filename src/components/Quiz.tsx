@@ -3,6 +3,7 @@ import { ArrowLeft, Carrot, Zap, ShoppingBag, Truck } from 'lucide-react';
 import { CountryCode } from '../data/countries';
 import countries from '../data/countries';
 import { QuizAnswers } from '../utils/calculator';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface Props {
   countryCode: CountryCode;
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export default function Quiz({ countryCode, onSubmit, onBack }: Props) {
+  const { t } = useLanguage();
   const country = countries[countryCode];
   const [transportId, setTransportId] = useState<string>('');
   const [weeklyKm, setWeeklyKm] = useState<string>('50');
@@ -19,13 +21,15 @@ export default function Quiz({ countryCode, onSubmit, onBack }: Props) {
   const [monthlySpend, setMonthlySpend] = useState<string>('5000');
   const [section, setSection] = useState<number>(0);
 
+  const unit = countryCode === 'US' ? 'miles' : 'km';
+
   const sections = [
     {
-      title: 'Transport',
+      title: t('quiz_transport'),
       icon: <Truck size={20} className="text-breathe-green" />,
       content: (
         <div className="space-y-3">
-          <p className="text-gray-500 text-xs mb-2">How do you usually get around?</p>
+          <p className="text-gray-500 text-xs mb-2">{t('quiz_transportQ')}</p>
           {country.transportOptions.map((opt) => (
             <button
               key={opt.id}
@@ -42,7 +46,7 @@ export default function Quiz({ countryCode, onSubmit, onBack }: Props) {
           ))}
           <div className="mt-4">
             <label className="text-gray-600 text-sm font-medium block mb-1" htmlFor="weeklyKm">
-              Weekly distance ({countryCode === 'US' ? 'miles' : 'km'})
+              {t('quiz_weeklyDistance', { unit })}
             </label>
             <input
               id="weeklyKm"
@@ -50,9 +54,9 @@ export default function Quiz({ countryCode, onSubmit, onBack }: Props) {
               min="0"
               value={weeklyKm}
               onChange={(e) => setWeeklyKm(e.target.value)}
-              aria-label={`Weekly distance in ${countryCode === 'US' ? 'miles' : 'km'}`}
+              aria-label={`Weekly distance in ${unit}`}
               className="w-full py-2.5 px-4 rounded-xl border border-gray-200 focus:border-breathe-green focus:ring-1 focus:ring-breathe-green/30 outline-none text-gray-800 text-sm transition-all"
-              placeholder="e.g. 50"
+              placeholder={t('quiz_distancePlaceholder')}
             />
           </div>
         </div>
@@ -60,11 +64,11 @@ export default function Quiz({ countryCode, onSubmit, onBack }: Props) {
       valid: transportId !== '',
     },
     {
-      title: 'Food',
+      title: t('quiz_food'),
       icon: <Carrot size={20} className="text-breathe-green" />,
       content: (
         <div className="space-y-3">
-          <p className="text-gray-500 text-xs mb-2">What does your diet look like?</p>
+          <p className="text-gray-500 text-xs mb-2">{t('quiz_foodQ')}</p>
           {country.dietOptions.map((opt) => (
             <button
               key={opt.id}
@@ -84,11 +88,11 @@ export default function Quiz({ countryCode, onSubmit, onBack }: Props) {
       valid: dietId !== '',
     },
     {
-      title: 'Energy',
+      title: t('quiz_energy'),
       icon: <Zap size={20} className="text-breathe-green" />,
       content: (
         <div className="space-y-3">
-          <p className="text-gray-500 text-xs mb-2">Monthly electricity usage</p>
+          <p className="text-gray-500 text-xs mb-2">{t('quiz_energyQ')}</p>
           <input
             id="electricityKwh"
             type="number"
@@ -97,7 +101,7 @@ export default function Quiz({ countryCode, onSubmit, onBack }: Props) {
             onChange={(e) => setElectricityKwh(e.target.value)}
             aria-label="Monthly electricity usage in kWh"
             className="w-full py-2.5 px-4 rounded-xl border border-gray-200 focus:border-breathe-green focus:ring-1 focus:ring-breathe-green/30 outline-none text-gray-800 text-sm transition-all"
-            placeholder="kWh per month"
+            placeholder={t('quiz_kwhPlaceholder')}
           />
           <p className="text-gray-400 text-xs">{country.electricityHint}</p>
         </div>
@@ -105,11 +109,11 @@ export default function Quiz({ countryCode, onSubmit, onBack }: Props) {
       valid: electricityKwh !== '' && Number(electricityKwh) >= 0,
     },
     {
-      title: 'Shopping',
+      title: t('quiz_shopping'),
       icon: <ShoppingBag size={20} className="text-breathe-green" />,
       content: (
         <div className="space-y-3">
-          <p className="text-gray-500 text-xs mb-2">Monthly spend on new items (clothes, electronics)</p>
+          <p className="text-gray-500 text-xs mb-2">{t('quiz_shoppingQ')}</p>
           <div className="relative">
             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm">{country.currency}</span>
             <input
@@ -151,19 +155,18 @@ export default function Quiz({ countryCode, onSubmit, onBack }: Props) {
           aria-label="Go back"
           className="text-gray-400 hover:text-gray-600 text-sm mb-4 flex items-center gap-1 transition-colors"
         >
-          <ArrowLeft size={14} /> Back
+          <ArrowLeft size={14} /> {t('quiz_back')}
         </button>
 
         <div className="text-center mb-6">
           <p className="text-breathe-green font-medium text-xs tracking-wider uppercase mb-2">
-            {section + 1} of {sections.length}
+            {t('quiz_sectionOf', { n: section + 1, total: sections.length })}
           </p>
           <h1 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-1">
-            Your daily choices shape the air around you.
+            {t('quiz_tagline')}
           </h1>
         </div>
 
-        {/* Progress bar */}
         <div className="flex gap-1.5 mb-6">
           {sections.map((_, i) => (
             <div
@@ -175,16 +178,13 @@ export default function Quiz({ countryCode, onSubmit, onBack }: Props) {
           ))}
         </div>
 
-        {/* Section header */}
         <div className="flex items-center gap-2 mb-4">
           {current.icon}
           <h2 className="text-lg font-semibold text-gray-800">{current.title}</h2>
         </div>
 
-        {/* Section content */}
         <div className="slide-up">{current.content}</div>
 
-        {/* Navigation */}
         <div className="flex gap-3 mt-8">
           {section > 0 && (
             <button
@@ -192,7 +192,7 @@ export default function Quiz({ countryCode, onSubmit, onBack }: Props) {
               aria-label="Previous section"
               className="flex-1 py-3 rounded-xl font-semibold text-gray-600 bg-gray-50 border border-gray-100 hover:bg-gray-100 transition-all text-sm"
             >
-              Previous
+              {t('quiz_previous')}
             </button>
           )}
           <button
@@ -208,7 +208,7 @@ export default function Quiz({ countryCode, onSubmit, onBack }: Props) {
                 : 'bg-gray-100 text-gray-300 cursor-not-allowed'
             }`}
           >
-            {isLast ? 'See your footprint' : 'Next'}
+            {isLast ? t('quiz_seeFootprint') : t('quiz_next')}
           </button>
         </div>
       </div>

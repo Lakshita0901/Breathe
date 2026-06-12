@@ -3,6 +3,7 @@ import { MessageCircle, RefreshCw, Leaf } from 'lucide-react';
 import { CountryCode } from '../data/countries';
 import countries from '../data/countries';
 import { FootprintBreakdown, QuizAnswers } from '../utils/calculator';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface Props {
   countryCode: CountryCode;
@@ -27,6 +28,7 @@ const LANGUAGE_NAMES: Record<string, string> = {
 };
 
 export default function AIInsights({ countryCode, languageCode, breakdown, answers }: Props) {
+  const { t } = useLanguage();
   const country = countries[countryCode];
   const [insight, setInsight] = useState<string>('');
   const [loading, setLoading] = useState(true);
@@ -112,7 +114,7 @@ Write 3 paragraphs:
           <div className="w-8 h-8 rounded-full bg-breathe-green/10 flex items-center justify-center">
             <MessageCircle size={16} className="text-breathe-green" />
           </div>
-          <h3 className="text-sm font-semibold text-gray-800">Breathe says</h3>
+          <h3 className="text-sm font-semibold text-gray-800">{t('ai_title')}</h3>
         </div>
         {!loading && (
           <button
@@ -120,7 +122,7 @@ Write 3 paragraphs:
             aria-label="Regenerate insights"
             className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-breathe-green transition-colors px-2 py-1 rounded-lg hover:bg-breathe-green/5"
           >
-            <RefreshCw size={12} /> Regenerate
+            <RefreshCw size={12} /> {t('ai_regenerate')}
           </button>
         )}
       </div>
@@ -132,8 +134,8 @@ Write 3 paragraphs:
             <Leaf size={24} className="text-breathe-green" />
           </div>
           <div className="text-center">
-            <p className="text-sm font-medium text-gray-600">Breathe is thinking...</p>
-            <p className="text-xs text-gray-400 mt-1">Crafting something personal for you</p>
+            <p className="text-sm font-medium text-gray-600">{t('ai_thinking')}</p>
+            <p className="text-xs text-gray-400 mt-1">{t('ai_crafting')}</p>
           </div>
         </div>
       )}
@@ -144,12 +146,12 @@ Write 3 paragraphs:
           {usingSample && (
             <div className="flex items-center gap-2 text-amber-600/80 text-xs bg-amber-50/50 px-3 py-2 rounded-lg mb-2">
               <Leaf size={12} className="shrink-0" />
-              <span>Showing a sample insight. Connect an API key for personalized results.</span>
+              <span>{t('ai_sampleNotice')}</span>
             </div>
           )}
           {error && !usingSample && (
             <div className="flex items-center gap-2 text-amber-500 text-xs bg-amber-50/50 px-3 py-2 rounded-lg mb-2">
-              <span>Could not reach the API. Showing a sample insight instead.</span>
+              <span>{t('ai_apiError')}</span>
             </div>
           )}
           {insight.split('\n\n').map((paragraph, i) => (

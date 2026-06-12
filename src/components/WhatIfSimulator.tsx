@@ -3,6 +3,7 @@ import { Sparkles, TrendingDown, ArrowRight } from 'lucide-react';
 import { CountryCode } from '../data/countries';
 import countries from '../data/countries';
 import { QuizAnswers, simulateWhatIf } from '../utils/calculator';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface Props {
   countryCode: CountryCode;
@@ -21,6 +22,7 @@ function getStoredAnswers(): QuizAnswers | null {
 }
 
 export default function WhatIfSimulator({ countryCode, currentTotal }: Props) {
+  const { t } = useLanguage();
   const country = countries[countryCode];
   const answers = getStoredAnswers();
   const [newTransport, setNewTransport] = useState<string>('');
@@ -44,19 +46,20 @@ export default function WhatIfSimulator({ countryCode, currentTotal }: Props) {
 
   return (
     <div className="bg-breathe-green/[0.03] rounded-2xl p-6 shadow-sm border border-breathe-green/15">
-      {/* Heading */}
       <div className="flex items-center gap-2.5 mb-1">
         <div className="w-8 h-8 rounded-full bg-breathe-green/10 flex items-center justify-center">
           <Sparkles size={16} className="text-breathe-green" />
         </div>
-        <h3 className="text-base font-semibold text-gray-800">What if you changed one thing?</h3>
+        <h3 className="text-base font-semibold text-gray-800">{t('whatif_title')}</h3>
       </div>
-      <p className="text-xs text-gray-400 mb-5 ml-[42px]">See how small shifts could lighten your footprint</p>
+      <p className="text-xs text-gray-400 mb-5 ml-[42px]">{t('whatif_subtitle')}</p>
 
       <div className="space-y-4">
         {/* Transport dropdown */}
         <div>
-          <label className="text-xs text-gray-600 font-medium block mb-1.5" htmlFor="sim-transport">Change your transport</label>
+          <label className="text-xs text-gray-600 font-medium block mb-1.5" htmlFor="sim-transport">
+            {t('whatif_changeTransport')}
+          </label>
           <select
             id="sim-transport"
             value={newTransport}
@@ -64,7 +67,7 @@ export default function WhatIfSimulator({ countryCode, currentTotal }: Props) {
             aria-label="Select alternative transport mode"
             className="w-full py-2.5 px-4 rounded-xl border border-breathe-green/20 text-sm text-gray-700 bg-breathe-green/5 focus:border-breathe-green focus:ring-2 focus:ring-breathe-green/20 outline-none transition-all appearance-none cursor-pointer"
           >
-            <option value="">Keep current</option>
+            <option value="">{t('whatif_keepCurrent')}</option>
             {country.transportOptions.map((opt) => (
               <option key={opt.id} value={opt.id}>{opt.label}</option>
             ))}
@@ -73,7 +76,9 @@ export default function WhatIfSimulator({ countryCode, currentTotal }: Props) {
 
         {/* Diet dropdown */}
         <div>
-          <label className="text-xs text-gray-600 font-medium block mb-1.5" htmlFor="sim-diet">Change your diet</label>
+          <label className="text-xs text-gray-600 font-medium block mb-1.5" htmlFor="sim-diet">
+            {t('whatif_changeDiet')}
+          </label>
           <select
             id="sim-diet"
             value={newDiet}
@@ -81,7 +86,7 @@ export default function WhatIfSimulator({ countryCode, currentTotal }: Props) {
             aria-label="Select alternative diet"
             className="w-full py-2.5 px-4 rounded-xl border border-breathe-green/20 text-sm text-gray-700 bg-breathe-green/5 focus:border-breathe-green focus:ring-2 focus:ring-breathe-green/20 outline-none transition-all appearance-none cursor-pointer"
           >
-            <option value="">Keep current</option>
+            <option value="">{t('whatif_keepCurrent')}</option>
             {country.dietOptions.map((opt) => (
               <option key={opt.id} value={opt.id}>{opt.label}</option>
             ))}
@@ -91,7 +96,7 @@ export default function WhatIfSimulator({ countryCode, currentTotal }: Props) {
         {/* Energy slider */}
         <div>
           <label className="text-xs text-gray-600 font-medium block mb-1.5" htmlFor="sim-energy">
-            Reduce energy use by <span className="text-breathe-green font-semibold">{energyReduction}%</span>
+            {t('whatif_reduceEnergy', { n: energyReduction })}
           </label>
           <input
             id="sim-energy"
@@ -118,10 +123,12 @@ export default function WhatIfSimulator({ countryCode, currentTotal }: Props) {
             <>
               <div className="flex items-center gap-2 mb-3">
                 <TrendingDown size={16} className="text-breathe-green" />
-                <span className="text-sm font-semibold text-breathe-green">You could save {Math.round(result.saved)} kg CO&#8322;</span>
+                <span className="text-sm font-semibold text-breathe-green">
+                  {t('whatif_youCouldSave', { n: Math.round(result.saved) })}
+                </span>
               </div>
               <div className="flex items-baseline justify-between mb-3">
-                <span className="text-xs text-gray-500">New monthly total</span>
+                <span className="text-xs text-gray-500">{t('whatif_newMonthlyTotal')}</span>
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-gray-400 line-through">{Math.round(currentTotal)} kg</span>
                   <ArrowRight size={12} className="text-breathe-green" />
@@ -130,7 +137,7 @@ export default function WhatIfSimulator({ countryCode, currentTotal }: Props) {
               </div>
               <div className="bg-breathe-green/5 rounded-lg px-3 py-2.5">
                 <p className="text-xs text-gray-600 italic leading-relaxed">
-                  That's {result.savedEmotional}
+                  {t('whatif_thats')}{result.savedEmotional}
                 </p>
               </div>
             </>
@@ -138,7 +145,7 @@ export default function WhatIfSimulator({ countryCode, currentTotal }: Props) {
           {result.saved < 0 && (
             <>
               <div className="flex items-baseline justify-between mb-2">
-                <span className="text-xs text-gray-500">New monthly total</span>
+                <span className="text-xs text-gray-500">{t('whatif_newMonthlyTotal')}</span>
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-gray-400 line-through">{Math.round(currentTotal)} kg</span>
                   <ArrowRight size={12} className="text-amber-500" />
@@ -146,20 +153,19 @@ export default function WhatIfSimulator({ countryCode, currentTotal }: Props) {
                 </div>
               </div>
               <p className="text-xs text-amber-600">
-                This would add {Math.round(Math.abs(result.saved))} kg to your footprint
+                {t('whatif_wouldAdd', { n: Math.round(Math.abs(result.saved)) })}
               </p>
             </>
           )}
           {result.saved === 0 && (
-            <p className="text-xs text-gray-400">Same as your current selection</p>
+            <p className="text-xs text-gray-400">{t('whatif_same')}</p>
           )}
         </div>
       )}
 
-      {/* Prompt when no change selected */}
       {!hasChange && (
         <div className="mt-5 p-4 rounded-xl bg-white/50 border border-dashed border-breathe-green/15 text-center">
-          <p className="text-xs text-gray-400">Pick a change above to see your potential savings</p>
+          <p className="text-xs text-gray-400">{t('whatif_pickChange')}</p>
         </div>
       )}
     </div>

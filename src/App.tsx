@@ -10,6 +10,7 @@ import AIInsights from './components/AIInsights';
 import ShareCard from './components/ShareCard';
 import HistoryChart from './components/HistoryChart';
 import { getHistory } from './utils/history';
+import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 
 const STORAGE_KEY = 'breathe_state';
 
@@ -21,80 +22,49 @@ interface AppState {
   breakdown: FootprintBreakdown | null;
 }
 
-function App() {
-  const [state, setState] = useState<AppState>({
-    screen: 0,
-    countryCode: null,
-    languageCode: null,
-    answers: null,
-    breakdown: null,
-  });
+interface AppContentProps {
+  state: AppState;
+  setState: React.Dispatch<React.SetStateAction<AppState>>;
+}
 
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved) as AppState;
-        if (parsed.screen > 0 && parsed.countryCode) {
-          setState(parsed);
-        }
-      }
-    } catch {
-      // ignore
-    }
-  }, []);
-
-  useEffect(() => {
-    if (state.screen > 1) {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      } catch {
-        // ignore
-      }
-    }
-  }, [state]);
+function AppContent({ state, setState }: AppContentProps) {
+  const { t } = useLanguage();
+  const history = getHistory();
 
   const handleCountrySelect = (code: CountryCode) => {
-    setState({ ...state, screen: 1, countryCode: code });
+    setState((s) => ({ ...s, screen: 1, countryCode: code }));
   };
 
   const handleLanguageSelect = (langCode: string) => {
-    setState({ ...state, screen: 2, languageCode: langCode });
+    setState((s) => ({ ...s, screen: 2, languageCode: langCode }));
   };
 
   const handleQuizSubmit = (answers: QuizAnswers) => {
     if (!state.countryCode) return;
     try {
       localStorage.setItem('breathe_quiz_answers', JSON.stringify(answers));
-    } catch {
-      // ignore
-    }
+    } catch { /* ignore */ }
     const breakdown = calculateFootprint(state.countryCode, answers);
-    setState({ ...state, screen: 3, answers, breakdown });
+    setState((s) => ({ ...s, screen: 3, answers, breakdown }));
   };
 
   const handleContinueToInsights = () => {
-    setState({ ...state, screen: 4 });
+    setState((s) => ({ ...s, screen: 4 }));
   };
 
   const handleStartOver = () => {
     try {
       localStorage.removeItem(STORAGE_KEY);
       localStorage.removeItem('breathe_quiz_answers');
-    } catch {
-      // ignore
-    }
+    } catch { /* ignore */ }
     setState({ screen: 0, countryCode: null, languageCode: null, answers: null, breakdown: null });
   };
 
   const handleViewHistory = () => {
-    const latestCountry = state.countryCode;
-    if (latestCountry) {
-      setState({ ...state, screen: 1, countryCode: latestCountry });
+    if (state.countryCode) {
+      setState((s) => ({ ...s, screen: 1 }));
     }
   };
-
-  const history = getHistory();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
@@ -106,7 +76,7 @@ function App() {
         <LanguageSelector
           countryCode={state.countryCode}
           onSelect={handleLanguageSelect}
-          onBack={() => setState({ ...state, screen: 0 })}
+          onBack={() => setState((s) => ({ ...s, screen: 0 }))}
         />
       )}
 
@@ -114,7 +84,7 @@ function App() {
         <Quiz
           countryCode={state.countryCode}
           onSubmit={handleQuizSubmit}
-          onBack={() => setState({ ...state, screen: 1 })}
+          onBack={() => setState((s) => ({ ...s, screen: 1 }))}
         />
       )}
 
@@ -131,8 +101,12 @@ function App() {
         <div className="fade-in min-h-screen px-4 py-8 pb-16">
           <div className="max-w-lg mx-auto space-y-6">
             <div className="text-center mb-6">
-              <h1 className="text-2xl font-semibold text-gray-800 mb-1">Your personalized insights</h1>
-              <p className="text-gray-400 text-sm">Tailored to your life in {countries[state.countryCode]?.name}</p>
+              <h1 className="text-2xl font-semibold text-gray-800 mb-1">
+                {t('app_personalizedInsights')}
+              </h1>
+              <p className="text-gray-400 text-sm">
+                {t('app_tailoredTo', { country: countries[state.countryCode]?.name ?? '' })}
+              </p>
             </div>
 
             <AIInsights
@@ -156,12 +130,48 @@ function App() {
               aria-label="Start over with a new calculation"
               className="w-full py-3 rounded-xl text-gray-400 text-sm font-medium hover:text-gray-600 transition-colors"
             >
-              Start over
+              {t('app_startOver')}
             </button>
           </div>
         </div>
       )}
     </div>
+  );
+}
+
+function App() {
+  const [state, setState] = useState<AppState>({
+    screen: 0,
+    countryCode: null,
+    languageCode: null,
+    answers: null,
+    breakdown: null,
+  });
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved) as AppState;
+        if (parsed.screen > 0 && parsed.countryCode) {
+          setState(parsed);
+        }
+      }
+    } catch { /* ignore */ }
+  }, []);
+
+  useEffect(() => {
+    if (state.screen > 1) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch { /* ignore */ }
+    }
+  }, [state]);
+
+  return (
+    <LanguageProvider lang={state.languageCode ?? 'en'}>
+      <AppContent state={state} setState={setState} />
+    </LanguageProvider>
   );
 }
 

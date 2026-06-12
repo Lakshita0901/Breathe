@@ -3,6 +3,7 @@ import { Copy, Check, Leaf } from 'lucide-react';
 import { CountryCode } from '../data/countries';
 import countries from '../data/countries';
 import { FootprintBreakdown, getEmotionalEquivalent } from '../utils/calculator';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface Props {
   countryCode: CountryCode;
@@ -10,22 +11,23 @@ interface Props {
 }
 
 export default function ShareCard({ countryCode, breakdown }: Props) {
+  const { t } = useLanguage();
   const country = countries[countryCode];
   const [copied, setCopied] = useState(false);
 
   const totalEmotional = getEmotionalEquivalent(countryCode, 'total', breakdown.total);
 
-  const shareText = `My monthly carbon footprint: ${Math.round(breakdown.total)} kg CO₂
+  const shareText = `${t('share_myFootprint', { n: Math.round(breakdown.total) })}
 
 ${breakdown.moodEmoji} ${breakdown.moodText}
 
-Transport: ${Math.round(breakdown.transport)} kg | Food: ${Math.round(breakdown.food)} kg | Energy: ${Math.round(breakdown.energy)} kg | Shopping: ${Math.round(breakdown.shopping)} kg
+${t('dash_transport')}: ${Math.round(breakdown.transport)} kg | ${t('dash_food')}: ${Math.round(breakdown.food)} kg | ${t('dash_energy')}: ${Math.round(breakdown.energy)} kg | ${t('dash_shopping')}: ${Math.round(breakdown.shopping)} kg
 
-${Math.round(breakdown.pctOfAvg)}% of ${country.name} average
+${t('share_pctOfAvg', { n: Math.round(breakdown.pctOfAvg), country: country.name })}
 
 ${totalEmotional}
 
-See what you breathe. Change what you leave.
+${t('share_tagline')}
 
 #Breathe #PromptWarsVirtual #Challenge3 #Sustainability #CarbonAwareness`;
 
@@ -48,32 +50,31 @@ See what you breathe. Change what you leave.
 
   return (
     <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-      <h3 className="text-sm font-semibold text-gray-700 mb-4">Your score card</h3>
+      <h3 className="text-sm font-semibold text-gray-700 mb-4">{t('share_title')}</h3>
 
       {/* Card preview */}
       <div className="bg-gradient-to-br from-breathe-green/5 to-breathe-blue/5 rounded-2xl p-6 border border-breathe-green/10 mb-4">
         <div className="flex items-center gap-2 mb-3">
           <Leaf size={18} className="text-breathe-green" />
-          <span className="font-bold text-breathe-green text-base">Breathe</span>
+          <span className="font-bold text-breathe-green text-base">{t('cs_appName')}</span>
         </div>
         <p className="text-2xl font-bold text-gray-800 mb-1">
-          {Math.round(breakdown.total)} <span className="text-sm font-normal text-gray-400">kg CO&#8322;/mo</span>
+          {Math.round(breakdown.total)} <span className="text-sm font-normal text-gray-400">{t('cs_kgPerMonth')}</span>
         </p>
         <p className="text-sm text-gray-500 mb-3">
           {breakdown.moodEmoji} {breakdown.moodText}
         </p>
         <div className="flex flex-wrap gap-2 mb-3">
-          <span className="text-xs bg-white/80 text-gray-600 px-2 py-1 rounded-lg">Transport {Math.round(breakdown.transport)}</span>
-          <span className="text-xs bg-white/80 text-gray-600 px-2 py-1 rounded-lg">Food {Math.round(breakdown.food)}</span>
-          <span className="text-xs bg-white/80 text-gray-600 px-2 py-1 rounded-lg">Energy {Math.round(breakdown.energy)}</span>
-          <span className="text-xs bg-white/80 text-gray-600 px-2 py-1 rounded-lg">Shopping {Math.round(breakdown.shopping)}</span>
+          <span className="text-xs bg-white/80 text-gray-600 px-2 py-1 rounded-lg">{t('dash_transport')} {Math.round(breakdown.transport)}</span>
+          <span className="text-xs bg-white/80 text-gray-600 px-2 py-1 rounded-lg">{t('dash_food')} {Math.round(breakdown.food)}</span>
+          <span className="text-xs bg-white/80 text-gray-600 px-2 py-1 rounded-lg">{t('dash_energy')} {Math.round(breakdown.energy)}</span>
+          <span className="text-xs bg-white/80 text-gray-600 px-2 py-1 rounded-lg">{t('dash_shopping')} {Math.round(breakdown.shopping)}</span>
         </div>
-        <p className="text-xs text-gray-400">{Math.round(breakdown.pctOfAvg)}% of {country.name} average</p>
+        <p className="text-xs text-gray-400">{t('share_pctOfAvg', { n: Math.round(breakdown.pctOfAvg), country: country.name })}</p>
         <p className="text-xs text-gray-400 italic mt-1">{totalEmotional}</p>
-        <p className="text-xs text-breathe-green/60 mt-3 font-medium">See what you breathe. Change what you leave.</p>
+        <p className="text-xs text-breathe-green/60 mt-3 font-medium">{t('share_tagline')}</p>
       </div>
 
-      {/* Copy button */}
       <button
         onClick={handleCopy}
         aria-label="Copy shareable score card text"
@@ -84,7 +85,7 @@ See what you breathe. Change what you leave.
         }`}
       >
         {copied ? <Check size={14} /> : <Copy size={14} />}
-        {copied ? 'Copied to clipboard!' : 'Copy for LinkedIn'}
+        {copied ? t('share_copied') : t('share_copyLinkedIn')}
       </button>
     </div>
   );
