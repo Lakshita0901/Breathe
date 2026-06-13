@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { Truck, Carrot, Zap, ShoppingBag, Leaf, Save, Check } from 'lucide-react';
 import { CountryCode } from '../data/countries';
 import countries from '../data/countries';
-import { FootprintBreakdown, getComparisonBars, getEmotionalEquivalent } from '../utils/calculator';
+import { FootprintBreakdown, QuizAnswers, getComparisonBars, getEmotionalEquivalent } from '../utils/calculator';
 import { saveToHistory } from '../utils/history';
 import WhatIfSimulator from './WhatIfSimulator';
+import ChatBot from './ChatBot';
 import { useLanguage } from '../contexts/LanguageContext';
 import { TranslationKey } from '../translations';
 
@@ -12,11 +13,11 @@ interface Props {
   countryCode: CountryCode;
   languageCode: string;
   breakdown: FootprintBreakdown;
+  answers: QuizAnswers;
   regionId?: string;
-  onContinue: () => void;
 }
 
-export default function Dashboard({ countryCode, languageCode, breakdown, regionId, onContinue }: Props) {
+export default function Dashboard({ countryCode, languageCode, breakdown, answers, regionId }: Props) {
   const { t } = useLanguage();
   const country = countries[countryCode];
   const comparisons = getComparisonBars(breakdown, countryCode);
@@ -132,7 +133,7 @@ export default function Dashboard({ countryCode, languageCode, breakdown, region
 
         <WhatIfSimulator countryCode={countryCode} currentTotal={breakdown.total} />
 
-        <div className="mt-8 space-y-3">
+        <div className="mt-6">
           <button
             onClick={handleSave}
             disabled={saved}
@@ -146,13 +147,16 @@ export default function Dashboard({ countryCode, languageCode, breakdown, region
             {saved ? <Check size={14} /> : <Save size={14} />}
             {saved ? t('dash_savedHistory') : t('dash_saveResult')}
           </button>
-          <button
-            onClick={onContinue}
-            aria-label="Get AI insights about your footprint"
-            className="w-full py-3.5 rounded-xl bg-breathe-green text-white font-semibold text-base shadow-lg shadow-breathe-green/25 hover:shadow-xl hover:shadow-breathe-green/30 transition-all duration-300"
-          >
-            {t('dash_getInsights')}
-          </button>
+        </div>
+
+        <div className="mt-6">
+          <ChatBot
+            countryCode={countryCode}
+            languageCode={languageCode}
+            breakdown={breakdown}
+            answers={answers}
+            regionId={regionId}
+          />
         </div>
       </div>
     </div>

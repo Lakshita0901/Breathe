@@ -19,6 +19,7 @@ export type TranslationKey =
   | 'whatif_changeDiet' | 'whatif_reduceEnergy' | 'whatif_youCouldSave'
   | 'whatif_newMonthlyTotal' | 'whatif_thats' | 'whatif_wouldAdd' | 'whatif_same' | 'whatif_pickChange'
   | 'ai_title' | 'ai_regenerate' | 'ai_thinking' | 'ai_crafting' | 'ai_sampleNotice' | 'ai_apiError'
+  | 'chat_placeholder' | 'chat_thinking' | 'chat_chipBiggest' | 'chat_chipEasyTip' | 'chat_chipEnergy' | 'chat_chipScore'
   | 'share_title' | 'share_copyLinkedIn' | 'share_copied' | 'share_tagline'
   | 'share_myFootprint' | 'share_pctOfAvg'
   | 'hist_title' | 'hist_latest' | 'hist_previous' | 'hist_unit';
@@ -102,6 +103,13 @@ const en: Dict = {
   ai_crafting: 'Crafting something personal for you',
   ai_sampleNotice: 'Showing a sample insight. Connect an API key for personalized results.',
   ai_apiError: 'Could not reach the API. Showing a sample insight instead.',
+
+  chat_placeholder: 'Ask Breathe anything...',
+  chat_thinking: 'Thinking...',
+  chat_chipBiggest: "What's my biggest problem?",
+  chat_chipEasyTip: 'Give me one easy tip',
+  chat_chipEnergy: 'How do I reduce my energy use?',
+  chat_chipScore: 'What does my score mean?',
 
   share_title: 'Your score card',
   share_copyLinkedIn: 'Copy for LinkedIn',
@@ -194,6 +202,13 @@ const hi: Dict = {
   ai_sampleNotice: 'नमूना जानकारी दिखा रहे हैं। व्यक्तिगत परिणामों के लिए API key जोड़ें।',
   ai_apiError: 'API तक पहुँचना संभव नहीं। नमूना जानकारी दिखा रहे हैं।',
 
+  chat_placeholder: 'Breathe से कुछ भी पूछें...',
+  chat_thinking: 'सोच रहा है...',
+  chat_chipBiggest: 'मेरी सबसे बड़ी समस्या क्या है?',
+  chat_chipEasyTip: 'एक आसान सुझाव दें',
+  chat_chipEnergy: 'मैं बिजली कैसे कम करूं?',
+  chat_chipScore: 'मेरा स्कोर क्या मतलब रखता है?',
+
   share_title: 'आपका स्कोर कार्ड',
   share_copyLinkedIn: 'LinkedIn के लिए कॉपी करें',
   share_copied: 'क्लिपबोर्ड में कॉपी हो गया!',
@@ -284,6 +299,13 @@ const mr: Dict = {
   ai_crafting: 'तुमच्यासाठी काहीतरी खास बनवत आहोत',
   ai_sampleNotice: 'नमुना माहिती दाखवत आहोत. वैयक्तिक परिणामांसाठी API key जोडा.',
   ai_apiError: 'API पर्यंत पोहोचणे शक्य नाही. नमुना माहिती दाखवत आहोत.',
+
+  chat_placeholder: 'Breathe ला काहीही विचारा...',
+  chat_thinking: 'विचार करत आहे...',
+  chat_chipBiggest: 'माझी सर्वात मोठी समस्या काय आहे?',
+  chat_chipEasyTip: 'एक सोपा सल्ला द्या',
+  chat_chipEnergy: 'मी वीज वापर कसा कमी करू?',
+  chat_chipScore: 'माझा स्कोर काय म्हणतो?',
 
   share_title: 'तुमचे स्कोर कार्ड',
   share_copyLinkedIn: 'LinkedIn साठी कॉपी करा',
@@ -376,6 +398,13 @@ const ta: Dict = {
   ai_sampleNotice: 'மாதிரி நுண்ணறிவு காட்டுகிறோம். தனிப்பட்ட முடிவுகளுக்கு API key சேர்க்கவும்.',
   ai_apiError: 'API-ஐ அணுக முடியவில்லை. மாதிரி நுண்ணறிவு காட்டுகிறோம்.',
 
+  chat_placeholder: 'Breathe-உடன் எதையும் கேளுங்கள்...',
+  chat_thinking: 'சிந்திக்கிறது...',
+  chat_chipBiggest: 'எனது மிகப்பெரிய பிரச்சனை என்ன?',
+  chat_chipEasyTip: 'ஒரு எளிய குறிப்பு தாருங்கள்',
+  chat_chipEnergy: 'நான் மின்சாரத்தை எப்படி குறைப்பது?',
+  chat_chipScore: 'எனது மதிப்பெண் என்ன பொருள்?',
+
   share_title: 'உங்கள் மதிப்பெண் அட்டை',
   share_copyLinkedIn: 'LinkedIn-க்கு நகலெடு',
   share_copied: 'கிளிப்போர்டில் நகலெடுக்கப்பட்டது!',
@@ -466,6 +495,13 @@ const te: Dict = {
   ai_crafting: 'మీ కోసం ఏదో ప్రత్యేకంగా తయారుచేస్తున్నాం',
   ai_sampleNotice: 'నమూనా అంతర్దృష్టులు చూపుతున్నాం. వ్యక్తిగత ఫలితాలకు API key జోడించండి.',
   ai_apiError: 'API ని యాక్సెస్ చేయడం సాధ్యం కాలేదు. నమూనా అంతర్దృష్టులు చూపుతున్నాం.',
+
+  chat_placeholder: 'Breathe ను ఏదైనా అడగండి...',
+  chat_thinking: 'ఆలోచిస్తోంది...',
+  chat_chipBiggest: 'నా అతిపెద్ద సమస్య ఏమిటి?',
+  chat_chipEasyTip: 'ఒక సులభ చిట్కా ఇవ్వండి',
+  chat_chipEnergy: 'నేను విద్యుత్ వాడకాన్ని ఎలా తగ్గించాలి?',
+  chat_chipScore: 'నా స్కోర్ అంటే ఏమిటి?',
 
   share_title: 'మీ స్కోర్ కార్డ్',
   share_copyLinkedIn: 'LinkedIn కోసం కాపీ చేయండి',
@@ -558,6 +594,13 @@ const yo: Dict = {
   ai_sampleNotice: 'Ṣafihan apẹẹrẹ alaye. Fi API key kun fun awọn abajade ti ara ẹni.',
   ai_apiError: 'Ko le de ọdọ API. Ṣafihan apẹẹrẹ alaye dipo.',
 
+  chat_placeholder: 'Bẹrẹ Breathe lọwọkọọkan...',
+  chat_thinking: 'Nronu...',
+  chat_chipBiggest: 'Kini idiyele ti o tobi julọ mi?',
+  chat_chipEasyTip: 'Fun mi ni iṣeduro kan',
+  chat_chipEnergy: 'Báwo ni mo ṣe din ina ku?',
+  chat_chipScore: 'Kini oṣuwọn mi tumọ si?',
+
   share_title: 'Kaadi ìgbékalẹ̀ rẹ',
   share_copyLinkedIn: 'Daakọ fun LinkedIn',
   share_copied: 'Ti daakọ si clipboard!',
@@ -648,6 +691,13 @@ const ha: Dict = {
   ai_crafting: 'Yana ƙirƙirar wani abu na musamman a gare ku',
   ai_sampleNotice: 'Yana nuna samfurin bayani. Ƙara API key don samun sakamakon na musamman.',
   ai_apiError: 'Ba a iya zuwa API. Ana nuna samfurin bayani maimakon haka.',
+
+  chat_placeholder: ' Tambaya Breathe komai...',
+  chat_thinking: 'Yana tunani...',
+  chat_chipBiggest: 'Mene ne babban matsalata?',
+  chat_chipEasyTip: 'Bani shawara guda daya',
+  chat_chipEnergy: 'Yaya zan rage amfani da wutar lantarki?',
+  chat_chipScore: 'Mene ne alkiblar ta ke nufi?',
 
   share_title: 'Katunan maki ɗinku',
   share_copyLinkedIn: 'Kwafa don LinkedIn',
@@ -740,6 +790,13 @@ const ig: Dict = {
   ai_sampleNotice: 'Na-egosi ihe ọmụma ọmụmaatụ. Tinye API key maka nsonaazụ nke onwe gị.',
   ai_apiError: 'Enweghị ike iru API. Na-egosi ihe ọmụma ọmụmaatụ kama.',
 
+  chat_placeholder: 'Jụọ Breathe ihe ọbụla...',
+  chat_thinking: 'Na-eche...',
+  chat_chipBiggest: 'Kedu nsogbu m kacha nwee?',
+  chat_chipEasyTip: 'Nyem m otu ndụmọdụ dị mfe',
+  chat_chipEnergy: 'Kedu ka m ga-esi belata ike m?',
+  chat_chipScore: 'Kedu ihe akara m pụtara?',
+
   share_title: 'Kaadị sgọọ gị',
   share_copyLinkedIn: 'Detuo maka LinkedIn',
   share_copied: 'E detuworo na clipboard!',
@@ -830,6 +887,13 @@ const de: Dict = {
   ai_crafting: 'Etwas Persönliches für Sie erstellen',
   ai_sampleNotice: 'Beispiel-Einblick wird angezeigt. Fügen Sie einen API-Schlüssel für personalisierte Ergebnisse hinzu.',
   ai_apiError: 'API nicht erreichbar. Beispiel-Einblick wird angezeigt.',
+
+  chat_placeholder: 'Fragen Sie Breathe etwas...',
+  chat_thinking: 'Denke nach...',
+  chat_chipBiggest: 'Was ist mein größtes Problem?',
+  chat_chipEasyTip: 'Geben Sie mir einen einfachen Tipp',
+  chat_chipEnergy: 'Wie reduziere ich meinen Energieverbrauch?',
+  chat_chipScore: 'Was bedeutet mein Ergebnis?',
 
   share_title: 'Ihre Scorecard',
   share_copyLinkedIn: 'Für LinkedIn kopieren',
@@ -922,6 +986,13 @@ const pt: Dict = {
   ai_sampleNotice: 'Mostrando um exemplo. Adicione uma chave de API para resultados personalizados.',
   ai_apiError: 'Não foi possível acessar a API. Mostrando um exemplo.',
 
+  chat_placeholder: 'Pergunte ao Breathe...',
+  chat_thinking: 'Pensando...',
+  chat_chipBiggest: 'Qual é meu maior problema?',
+  chat_chipEasyTip: 'Me dê uma dica fácil',
+  chat_chipEnergy: 'Como reduzo meu uso de energia?',
+  chat_chipScore: 'O que minha pontuação significa?',
+
   share_title: 'Seu cartão de pontuação',
   share_copyLinkedIn: 'Copiar para LinkedIn',
   share_copied: 'Copiado para a área de transferência!',
@@ -1013,6 +1084,13 @@ const es: Dict = {
   ai_sampleNotice: 'Mostrando un ejemplo. Añade una clave API para resultados personalizados.',
   ai_apiError: 'No se pudo acceder a la API. Mostrando un ejemplo.',
 
+  chat_placeholder: 'Pregúntale a Breathe algo...',
+  chat_thinking: 'Pensando...',
+  chat_chipBiggest: '¿Cuál es mi mayor problema?',
+  chat_chipEasyTip: 'Dame un consejo fácil',
+  chat_chipEnergy: '¿Cómo reduzco mi uso de energía?',
+  chat_chipScore: '¿Qué significa mi puntuación?',
+
   share_title: 'Tu tarjeta de puntuación',
   share_copyLinkedIn: 'Copiar para LinkedIn',
   share_copied: '¡Copiado al portapapeles!',
@@ -1103,6 +1181,13 @@ const sw: Dict = {
   ai_crafting: 'Inaunda kitu maalum kwa ajili yako',
   ai_sampleNotice: 'Inaonyesha mfano wa maarifa. Ongeza API key kwa matokeo ya kibinafsi.',
   ai_apiError: 'Haikuweza kufikia API. Inaonyesha mfano badala yake.',
+
+  chat_placeholder: 'Uliza Breathe chochote...',
+  chat_thinking: 'Inafikiria...',
+  chat_chipBiggest: 'Je, tatizo langu kubwa zaidi ni lipi?',
+  chat_chipEasyTip: 'Nipe ushauri mmoja rahisi',
+  chat_chipEnergy: 'Ninapunguza matumizi ya nishati vipi?',
+  chat_chipScore: 'Alama yangu inamaanisha nini?',
 
   share_title: 'Kadi yako ya alama',
   share_copyLinkedIn: 'Nakili kwa LinkedIn',
