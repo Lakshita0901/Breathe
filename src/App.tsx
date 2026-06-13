@@ -93,6 +93,7 @@ function AppContent({ state, setState }: AppContentProps) {
           countryCode={state.countryCode}
           languageCode={state.languageCode}
           breakdown={state.breakdown}
+          regionId={state.answers?.regionId}
           onContinue={handleContinueToInsights}
         />
       )}
@@ -119,6 +120,7 @@ function AppContent({ state, setState }: AppContentProps) {
             <ShareCard
               countryCode={state.countryCode}
               breakdown={state.breakdown}
+              regionId={state.answers?.regionId}
             />
 
             {history.length > 0 && (

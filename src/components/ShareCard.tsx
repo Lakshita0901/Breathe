@@ -8,14 +8,15 @@ import { useLanguage } from '../contexts/LanguageContext';
 interface Props {
   countryCode: CountryCode;
   breakdown: FootprintBreakdown;
+  regionId?: string;
 }
 
-export default function ShareCard({ countryCode, breakdown }: Props) {
+export default function ShareCard({ countryCode, breakdown, regionId }: Props) {
   const { t } = useLanguage();
   const country = countries[countryCode];
   const [copied, setCopied] = useState(false);
 
-  const totalEmotional = getEmotionalEquivalent(countryCode, 'total', breakdown.total);
+  const totalEmotional = getEmotionalEquivalent(countryCode, 'total', breakdown.total, regionId);
 
   const shareText = `${t('share_myFootprint', { n: Math.round(breakdown.total) })}
 

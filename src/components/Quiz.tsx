@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowLeft, Carrot, Zap, ShoppingBag, Truck } from 'lucide-react';
+import { ArrowLeft, Carrot, Zap, ShoppingBag, Truck, MapPin } from 'lucide-react';
 import { CountryCode } from '../data/countries';
 import countries from '../data/countries';
 import { QuizAnswers } from '../utils/calculator';
@@ -19,6 +19,7 @@ export default function Quiz({ countryCode, onSubmit, onBack }: Props) {
   const [dietId, setDietId] = useState<string>('');
   const [electricityKwh, setElectricityKwh] = useState<string>('200');
   const [monthlySpend, setMonthlySpend] = useState<string>('5000');
+  const [regionId, setRegionId] = useState<string>('');
   const [section, setSection] = useState<number>(0);
 
   const unit = countryCode === 'US' ? 'miles' : 'km';
@@ -131,6 +132,30 @@ export default function Quiz({ countryCode, onSubmit, onBack }: Props) {
       ),
       valid: monthlySpend !== '' && Number(monthlySpend) >= 0,
     },
+    {
+      title: t('quiz_regionLabel'),
+      icon: <MapPin size={20} className="text-breathe-green" />,
+      content: (
+        <div className="space-y-3">
+          <p className="text-gray-500 text-xs mb-2">{t('quiz_regionQ')}</p>
+          {country.regionOptions.map((opt) => (
+            <button
+              key={opt.id}
+              onClick={() => setRegionId(opt.id)}
+              aria-label={`Select ${opt.label}`}
+              className={`w-full py-3 px-4 rounded-xl text-left text-sm font-medium transition-all duration-200 ${
+                regionId === opt.id
+                  ? 'bg-breathe-green text-white shadow-md shadow-breathe-green/20'
+                  : 'bg-white text-gray-700 border border-gray-100 hover:border-breathe-green/30'
+              }`}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
+      ),
+      valid: regionId !== '',
+    },
   ];
 
   const current = sections[section];
@@ -144,6 +169,7 @@ export default function Quiz({ countryCode, onSubmit, onBack }: Props) {
       dietId,
       electricityKwh: Number(electricityKwh) || 0,
       monthlySpend: Number(monthlySpend) || 0,
+      regionId: regionId || undefined,
     });
   };
 

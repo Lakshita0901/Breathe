@@ -17,7 +17,7 @@ export function LanguageProvider({ lang, children }: { lang: string; children: R
     let str = dict[key] ?? translations.en[key] ?? key;
     if (params) {
       for (const [k, v] of Object.entries(params)) {
-        str = str.replaceAll(`{${k}}`, String(v));
+        str = str.replace(new RegExp(`\\{${k}\\}`, 'g'), String(v));
       }
     }
     return str;

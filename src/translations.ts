@@ -9,6 +9,7 @@ export type TranslationKey =
   | 'quiz_energy' | 'quiz_energyQ' | 'quiz_kwhPlaceholder'
   | 'quiz_shopping' | 'quiz_shoppingQ'
   | 'quiz_previous' | 'quiz_next' | 'quiz_seeFootprint'
+  | 'quiz_regionLabel' | 'quiz_regionQ'
   | 'dash_yourFootprint' | 'dash_kgThisMonth' | 'dash_howYouCompare' | 'dash_you'
   | 'dash_countryAverage' | 'dash_parisTarget'
   | 'dash_transport' | 'dash_food' | 'dash_energy' | 'dash_shopping'
@@ -60,6 +61,8 @@ const en: Dict = {
   quiz_previous: 'Previous',
   quiz_next: 'Next',
   quiz_seeFootprint: 'See your footprint',
+  quiz_regionLabel: 'Where you live',
+  quiz_regionQ: 'Which best describes where you live?',
 
   dash_yourFootprint: 'Your footprint',
   dash_kgThisMonth: 'kg CO\u2082 this month',
@@ -149,6 +152,8 @@ const hi: Dict = {
   quiz_previous: 'पिछला',
   quiz_next: 'अगला',
   quiz_seeFootprint: 'अपना कार्बन निशान देखें',
+  quiz_regionLabel: 'आप कहाँ रहते हैं',
+  quiz_regionQ: 'आपके रहने की जगह को सबसे अच्छे से क्या बताता है?',
 
   dash_yourFootprint: 'आपका कार्बन निशान',
   dash_kgThisMonth: 'kg CO₂ इस महीने',
@@ -238,6 +243,8 @@ const mr: Dict = {
   quiz_previous: 'मागील',
   quiz_next: 'पुढील',
   quiz_seeFootprint: 'तुमचा कार्बन ठसा पाहा',
+  quiz_regionLabel: 'तुम्ही कुठे राहता',
+  quiz_regionQ: 'तुमच्या राहण्याच्या ठिकाणाचे सर्वोत्तम वर्णन कोणते?',
 
   dash_yourFootprint: 'तुमचा कार्बन ठसा',
   dash_kgThisMonth: 'kg CO₂ या महिन्यात',
@@ -327,6 +334,8 @@ const ta: Dict = {
   quiz_previous: 'முந்தைய',
   quiz_next: 'அடுத்த',
   quiz_seeFootprint: 'உங்கள் கார்பன் தடத்தைப் பாருங்கள்',
+  quiz_regionLabel: 'நீங்கள் வசிக்கும் இடம்',
+  quiz_regionQ: 'உங்கள் வாழும் இடத்தை சிறப்பாக விவரிப்பது எது?',
 
   dash_yourFootprint: 'உங்கள் கார்பன் தடம்',
   dash_kgThisMonth: 'இந்த மாதம் kg CO₂',
@@ -416,6 +425,8 @@ const te: Dict = {
   quiz_previous: 'మునుపటి',
   quiz_next: 'తదుపరి',
   quiz_seeFootprint: 'మీ కార్బన్ పాదముద్ర చూడండి',
+  quiz_regionLabel: 'మీరు నివసించే ప్రాంతం',
+  quiz_regionQ: 'మీరు నివసించే చోటుని బాగా వివరించేది ఏది?',
 
   dash_yourFootprint: 'మీ కార్బన్ పాదముద్ర',
   dash_kgThisMonth: 'ఈ నెల kg CO₂',
@@ -505,6 +516,8 @@ const yo: Dict = {
   quiz_previous: 'Ti tẹlẹ',
   quiz_next: 'Tókàn',
   quiz_seeFootprint: 'Wo ẹsẹ carbon rẹ',
+  quiz_regionLabel: 'Ibiti o ngbé',
+  quiz_regionQ: 'Kini o ṣapejuwe ibiti o ngbé dara julọ?',
 
   dash_yourFootprint: 'Ẹsẹ carbon rẹ',
   dash_kgThisMonth: 'kg CO₂ oṣù yii',
@@ -594,6 +607,8 @@ const ha: Dict = {
   quiz_previous: 'Na baya',
   quiz_next: 'Na gaba',
   quiz_seeFootprint: 'Duba sawun carbon ɗinku',
+  quiz_regionLabel: 'Inda kuke zaune',
+  quiz_regionQ: 'Menene ya fi bayyana inda kuke zaune?',
 
   dash_yourFootprint: 'Sawun carbon ɗinku',
   dash_kgThisMonth: 'kg CO₂ wannan watan',
@@ -683,6 +698,8 @@ const ig: Dict = {
   quiz_previous: 'Nke gara aga',
   quiz_next: 'Nke ọzọ',
   quiz_seeFootprint: 'Lee ntọala carbon gị',
+  quiz_regionLabel: 'Ebe ị bi',
+  quiz_regionQ: 'Gịnị kọwapụtara nke ọma ebe ị bi?',
 
   dash_yourFootprint: 'Ntọala carbon gị',
   dash_kgThisMonth: 'kg CO₂ ọnwa a',
@@ -772,6 +789,8 @@ const de: Dict = {
   quiz_previous: 'Zurück',
   quiz_next: 'Weiter',
   quiz_seeFootprint: 'Meinen CO₂-Fußabdruck sehen',
+  quiz_regionLabel: 'Wo Sie wohnen',
+  quiz_regionQ: 'Was beschreibt Ihren Wohnort am besten?',
 
   dash_yourFootprint: 'Ihr CO₂-Fußabdruck',
   dash_kgThisMonth: 'kg CO₂ diesen Monat',
@@ -861,6 +880,8 @@ const pt: Dict = {
   quiz_previous: 'Anterior',
   quiz_next: 'Próximo',
   quiz_seeFootprint: 'Ver minha pegada de carbono',
+  quiz_regionLabel: 'Onde você mora',
+  quiz_regionQ: 'Qual melhor descreve onde você mora?',
 
   dash_yourFootprint: 'Sua pegada de carbono',
   dash_kgThisMonth: 'kg CO₂ este mês',
@@ -950,6 +971,8 @@ const es: Dict = {
   quiz_previous: 'Anterior',
   quiz_next: 'Siguiente',
   quiz_seeFootprint: 'Ver mi huella de carbono',
+  quiz_regionLabel: 'Dónde vives',
+  quiz_regionQ: '¿Cuál describe mejor dónde vives?',
 
   dash_yourFootprint: 'Tu huella de carbono',
   dash_kgThisMonth: 'kg CO₂ este mes',
@@ -1039,6 +1062,8 @@ const sw: Dict = {
   quiz_previous: 'Iliyopita',
   quiz_next: 'Inayofuata',
   quiz_seeFootprint: 'Angalia alama yako ya kaboni',
+  quiz_regionLabel: 'Unapoishi',
+  quiz_regionQ: 'Ni ipi inayoelezea vizuri zaidi mahali unapoishi?',
 
   dash_yourFootprint: 'Alama yako ya kaboni',
   dash_kgThisMonth: 'kg CO₂ mwezi huu',

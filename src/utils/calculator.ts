@@ -7,6 +7,7 @@ export interface QuizAnswers {
   dietId: string;
   electricityKwh: number;
   monthlySpend: number;
+  regionId?: string;
 }
 
 export interface FootprintBreakdown {
@@ -81,10 +82,11 @@ export function getComparisonBars(breakdown: FootprintBreakdown, countryCode: Co
 export function getEmotionalEquivalent(
   countryCode: CountryCode,
   category: 'transport' | 'food' | 'energy' | 'shopping' | 'total',
-  kg: number
+  kg: number,
+  regionId?: string
 ): string {
   const country = countries[countryCode];
-  return country.emotionalEquivalents[category](kg);
+  return country.emotionalEquivalents(regionId)[category](kg);
 }
 
 export function simulateWhatIf(
@@ -105,7 +107,7 @@ export function simulateWhatIf(
 
   const newBreakdown = calculateFootprint(countryCode, modifiedAnswers);
   const saved = current.total - newBreakdown.total;
-  const savedEmotional = getEmotionalEquivalent(countryCode, 'total', Math.abs(saved));
+  const savedEmotional = getEmotionalEquivalent(countryCode, 'total', Math.abs(saved), answers.regionId);
 
   return { newTotal: newBreakdown.total, saved, savedEmotional };
 }

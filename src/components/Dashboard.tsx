@@ -12,10 +12,11 @@ interface Props {
   countryCode: CountryCode;
   languageCode: string;
   breakdown: FootprintBreakdown;
+  regionId?: string;
   onContinue: () => void;
 }
 
-export default function Dashboard({ countryCode, languageCode, breakdown, onContinue }: Props) {
+export default function Dashboard({ countryCode, languageCode, breakdown, regionId, onContinue }: Props) {
   const { t } = useLanguage();
   const country = countries[countryCode];
   const comparisons = getComparisonBars(breakdown, countryCode);
@@ -123,7 +124,7 @@ export default function Dashboard({ countryCode, languageCode, breakdown, onCont
                 <div className={`h-full ${cat.color} rounded-full transition-all duration-700`} style={{ width: `${maxCat > 0 ? (cat.value / maxCat) * 100 : 0}%` }} />
               </div>
               <p className="text-[10px] text-gray-400 mt-2 italic leading-relaxed">
-                {getEmotionalEquivalent(countryCode, cat.key, cat.value)}
+                {getEmotionalEquivalent(countryCode, cat.key, cat.value, regionId)}
               </p>
             </div>
           ))}
