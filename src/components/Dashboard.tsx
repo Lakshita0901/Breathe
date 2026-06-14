@@ -23,8 +23,9 @@ interface Props {
 }
 
 export default function Dashboard({ countryCode, languageCode, breakdown, answers, regionId, onRetake, onStartOver }: Props) {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const country = countries[countryCode];
+  const localCountryName = t(`country_${countryCode}` as TranslationKey);
   const history = getHistory();
   const comparisons = getComparisonBars(breakdown, countryCode);
   const [saved, setSaved] = useState(false);
@@ -94,7 +95,7 @@ export default function Dashboard({ countryCode, languageCode, breakdown, answer
             </div>
             <div>
               <div className="flex justify-between text-xs text-gray-500 mb-1">
-                <span>{t('dash_countryAverage', { country: country.name })}</span>
+                <span>{t('dash_countryAverage', { country: localCountryName })}</span>
                 <span>{Math.round(comparisons.countryAvgValue)} kg</span>
               </div>
               <div className="h-3 bg-gray-50 rounded-full overflow-hidden">
@@ -131,7 +132,7 @@ export default function Dashboard({ countryCode, languageCode, breakdown, answer
                 <div className={`h-full ${cat.color} rounded-full transition-all duration-700`} style={{ width: `${maxCat > 0 ? (cat.value / maxCat) * 100 : 0}%` }} />
               </div>
               <p className="text-[10px] text-gray-400 mt-2 italic leading-relaxed">
-                {getEmotionalEquivalent(countryCode, cat.key, cat.value, regionId)}
+                {getEmotionalEquivalent(countryCode, cat.key, cat.value, regionId, lang)}
               </p>
             </div>
           ))}
@@ -170,6 +171,7 @@ export default function Dashboard({ countryCode, languageCode, breakdown, answer
             countryCode={countryCode}
             breakdown={breakdown}
             regionId={regionId}
+            languageCode={languageCode}
           />
         </div>
 

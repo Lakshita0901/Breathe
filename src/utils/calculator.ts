@@ -1,5 +1,6 @@
 import { CountryCode } from '../data/countries';
 import countries from '../data/countries';
+import { translations, TranslationKey } from '../translations';
 
 export interface QuizAnswers {
   transportId: string;
@@ -83,10 +84,41 @@ export function getEmotionalEquivalent(
   countryCode: CountryCode,
   category: 'transport' | 'food' | 'energy' | 'shopping' | 'total',
   kg: number,
-  regionId?: string
+  regionId: string | undefined,
+  lang: string = 'en'
 ): string {
-  const country = countries[countryCode];
-  return country.emotionalEquivalents(regionId)[category](kg);
+  const dict = translations[lang] ?? translations.en;
+  const enDict = translations.en;
+
+  if (kg < 5) {
+    return dict.emo_zero ?? enDict.emo_zero;
+  }
+
+  const catKey = category === 'total'
+    ? `emo_${countryCode}_transport` as TranslationKey
+    : `emo_${countryCode}_${category}` as TranslationKey;
+
+  const template = dict[catKey] ?? enDict[catKey];
+  if (!template) {
+    const country = countries[countryCode];
+    return country.emotionalEquivalents(regionId)[category](kg);
+  }
+
+  const divisors: Record<string, Record<string, number>> = {
+    IN: { transport: 0.3, food: 0.069, energy: 20, shopping: 3 },
+    NG: { transport: 1.5, food: 1.5, energy: 60, shopping: 2 },
+    DE: { transport: 1, food: 27, energy: 0.5, shopping: 15 },
+    BR: { transport: 2, food: 15, energy: 0.3, shopping: 7 },
+    KE: { transport: 1, food: 2, energy: 7.5, shopping: 0.3 },
+    US: { transport: 5, food: 27, energy: 1.5, shopping: 8 },
+  };
+
+  const d = divisors[countryCode]?.[category] ?? 1;
+  const n = Math.round(kg / d);
+
+  if (n <= 0) return dict.emo_zero ?? enDict.emo_zero;
+
+  return template.replace(/\{n\}/g, String(n));
 }
 
 export function simulateWhatIf(
@@ -94,7 +126,8 @@ export function simulateWhatIf(
   answers: QuizAnswers,
   newTransportId?: string,
   newDietId?: string,
-  energyReductionPct?: number
+  energyReductionPct?: number,
+  lang: string = 'en'
 ): { newTotal: number; saved: number; savedEmotional: string } {
   const current = calculateFootprint(countryCode, answers);
   const modifiedAnswers = { ...answers };
@@ -107,7 +140,7 @@ export function simulateWhatIf(
 
   const newBreakdown = calculateFootprint(countryCode, modifiedAnswers);
   const saved = current.total - newBreakdown.total;
-  const savedEmotional = getEmotionalEquivalent(countryCode, 'total', Math.abs(saved), answers.regionId);
+  const savedEmotional = getEmotionalEquivalent(countryCode, 'total', Math.abs(saved), answers.regionId, lang);
 
   return { newTotal: newBreakdown.total, saved, savedEmotional };
 }

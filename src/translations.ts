@@ -20,6 +20,7 @@ export type TranslationKey =
   | 'whatif_newMonthlyTotal' | 'whatif_thats' | 'whatif_wouldAdd' | 'whatif_same' | 'whatif_pickChange'
   | 'ai_title' | 'ai_regenerate' | 'ai_thinking' | 'ai_crafting' | 'ai_sampleNotice' | 'ai_apiError'
   | 'chat_placeholder' | 'chat_thinking' | 'chat_chipBiggest' | 'chat_chipEasyTip' | 'chat_chipEnergy' | 'chat_chipScore'
+  | 'chat_opening'
   | 'share_title' | 'share_copyLinkedIn' | 'share_copied' | 'share_tagline'
   | 'share_myFootprint' | 'share_pctOfAvg'
   | 'hist_title' | 'hist_latest' | 'hist_previous' | 'hist_unit'
@@ -42,7 +43,16 @@ export type TranslationKey =
   | 'diet_vegetarian' | 'diet_eggetarian' | 'diet_nonveg_occasional' | 'diet_nonveg_daily'
   | 'diet_plant_heavy' | 'diet_mixed' | 'diet_meat_daily'
   | 'diet_vegan' | 'diet_flexitarian' | 'diet_omnivore'
-  | 'diet_churrasco' | 'diet_sad';
+  | 'diet_churrasco' | 'diet_sad'
+  // Country names
+  | 'country_IN' | 'country_NG' | 'country_DE' | 'country_BR' | 'country_KE' | 'country_US'
+  // Emotional equivalent templates
+  | 'emo_zero' | 'emo_IN_transport' | 'emo_IN_food' | 'emo_IN_energy' | 'emo_IN_shopping'
+  | 'emo_NG_transport' | 'emo_NG_food' | 'emo_NG_energy' | 'emo_NG_shopping'
+  | 'emo_DE_transport' | 'emo_DE_food' | 'emo_DE_energy' | 'emo_DE_shopping'
+  | 'emo_BR_transport' | 'emo_BR_food' | 'emo_BR_energy' | 'emo_BR_shopping'
+  | 'emo_KE_transport' | 'emo_KE_food' | 'emo_KE_energy' | 'emo_KE_shopping'
+  | 'emo_US_transport' | 'emo_US_food' | 'emo_US_energy' | 'emo_US_shopping';
 
 type Dict = Record<TranslationKey, string>;
 
@@ -193,6 +203,18 @@ const en: Dict = {
   diet_omnivore: 'Omnivore (meat daily)',
   diet_churrasco: 'Churrasco lifestyle (meat-heavy daily)',
   diet_sad: 'Standard American diet (meat most meals)',
+
+  chat_opening: "Hi! I've looked at your carbon footprint — {total} kg this month. Your {highest} is the biggest contributor. Want to talk about it?",
+
+  country_IN: 'India', country_NG: 'Nigeria', country_DE: 'Germany', country_BR: 'Brazil', country_KE: 'Kenya', country_US: 'USA',
+
+  emo_zero: 'Almost zero — great job! 🌱',
+  emo_IN_transport: '= {n} auto rides to office', emo_IN_food: '= {n} rotis worth of cooking gas', emo_IN_energy: '= {n} months of ceiling fan running', emo_IN_shopping: '= {n} cotton kurtas manufactured',
+  emo_NG_transport: '= {n} danfo rides across town', emo_NG_food: '= {n} pots of jollof rice', emo_NG_energy: '= {n} months of generator fuel', emo_NG_shopping: '= {n} market purchases',
+  emo_DE_transport: '= {n} S-Bahn rides across the city', emo_DE_food: '= {n} kg of beef produced', emo_DE_energy: '= {n} loads of laundry', emo_DE_shopping: '= {n} fast-fashion jackets',
+  emo_BR_transport: '= {n} Uber rides through traffic', emo_BR_food: '= {n} churrascaria meals', emo_BR_energy: '= {n} hours of air conditioning', emo_BR_shopping: '= {n} pairs of Havaianas',
+  emo_KE_transport: '= {n} matatu rides across Nairobi', emo_KE_food: '= {n} servings of nyama choma', emo_KE_energy: '= {n} months of household electricity', emo_KE_shopping: '= {n} kitenge fabric pieces',
+  emo_US_transport: '= {n} round-trip car commutes', emo_US_food: '= {n} quarter-pound burgers', emo_US_energy: '= {n} days of central AC', emo_US_shopping: '= {n} pairs of sneakers',
 };
 
 /* ═══════════════════════════════════════
@@ -342,6 +364,14 @@ const hi: Dict = {
   diet_omnivore: 'Omnivore',
   diet_churrasco: 'Churrasco',
   diet_sad: 'Standard American diet',
+
+
+  chat_opening: 'नमस्ते! मैंने आपका कार्बन फुटप्रिंट देखा — इस महीने {total} kg. सबसे ज़्यादा असर आपकी {highest} का है. इस बारे में बात करें?',
+
+  country_IN: 'भारत', country_NG: 'नाइजीरिया', country_DE: 'जर्मनी', country_BR: 'ब्राज़ील', country_KE: 'केन्या', country_US: 'अमेरिका',
+
+  emo_zero: 'लगभग शून्य — बहुत बढ़िया! 🌱',
+  emo_IN_transport: '= {n} बार ऑटो से ऑफिस जाने जितना', emo_IN_food: '= {n} रोटियाँ पकाने जितना गैस', emo_IN_energy: '= {n} महीने पंखा चलाने जितनी बिजली', emo_IN_shopping: '= {n} कॉटन कुर्ते बनाने जितना', emo_NG_transport: '= {n} डैनफो राइड', emo_NG_food: '= {n} जोलोफ राइस बर्तन', emo_NG_energy: '= {n} महीने जनरेटर ईंधन', emo_NG_shopping: '= {n} बाज़ार खरीदारी', emo_DE_transport: '= {n} S-Bahn सफर', emo_DE_food: '= {n} किलो बीफ', emo_DE_energy: '= {n} कपड़े धोने के चक्कर', emo_DE_shopping: '= {n} फास्ट-फैशन जैकेट', emo_BR_transport: '= {n} उबर राइड', emo_BR_food: '= {n} चुरास्को भोजन', emo_BR_energy: '= {n} घंटे AC', emo_BR_shopping: '= {n} हवैनास जोड़े', emo_KE_transport: '= {n} मटातु सफर', emo_KE_food: '= {n} न्यामा चोमा सर्विंग', emo_KE_energy: '= {n} महीने घरेलू बिजली', emo_KE_shopping: '= {n} किटेंगे कपड़े', emo_US_transport: '= {n} कार कम्यूट ट्रिप', emo_US_food: '= {n} बर्गर', emo_US_energy: '= {n} दिन AC', emo_US_shopping: '= {n} स्नीकर जोड़े',
 };
 
 /* ═══════════════════════════════════════
@@ -491,6 +521,14 @@ const mr: Dict = {
   diet_omnivore: 'Omnivore',
   diet_churrasco: 'Churrasco',
   diet_sad: 'Standard American diet',
+
+
+  chat_opening: 'नमस्ते! मी तुमचा कार्बन फुटप्रिंट बघितला — या महिन्यात {total} kg. तुमची {highest} सर्वात जास्त आहे. याबद्दल बोलूया का?',
+
+  country_IN: 'भारत', country_NG: 'नायजेरिया', country_DE: 'जर्मनी', country_BR: 'ब्राझील', country_KE: 'केन्या', country_US: 'अमेरिका',
+
+  emo_zero: 'जवळपास शून्य — खूप छान! 🌱',
+  emo_IN_transport: '= {n} वेळा रिक्षाने ऑफिसला जाण्याइतके', emo_IN_food: '= {n} पोळ्या बनवण्याइतका गैस', emo_IN_energy: '= {n} महीने पंखा चालवण्याइतकी वीज', emo_IN_shopping: '= {n} कॉटन कुडते बनवण्याइतके', emo_NG_transport: '= {n} डॅनफो राइड', emo_NG_food: '= {n} जोलोफ राइस भांडी', emo_NG_energy: '= {n} महीने जनरेटर इंधन', emo_NG_shopping: '= {n} बाजार खरेदी', emo_DE_transport: '= {n} S-Bahn प्रवास', emo_DE_food: '= {n} किलो बीफ', emo_DE_energy: '= {n} कपडे धुण्याच्या फेऱ्या', emo_DE_shopping: '= {n} फास्ट-फॅशन जॅकेट', emo_BR_transport: '= {n} उबर राइड', emo_BR_food: '= {n} चुरास्को जेवण', emo_BR_energy: '= {n} तास AC', emo_BR_shopping: '= {n} हवैनास जोड्या', emo_KE_transport: '= {n} मटातू प्रवास', emo_KE_food: '= {n} न्यामा चोमा सर्व्हिंग', emo_KE_energy: '= {n} महीने घरगुती वीज', emo_KE_shopping: '= {n} किटेंगे कापड', emo_US_transport: '= {n} कार कम्यूट ट्रिप', emo_US_food: '= {n} बर्गर', emo_US_energy: '= {n} दिवस AC', emo_US_shopping: '= {n} स्नीकर जोड्या',
 };
 
 /* ═══════════════════════════════════════
@@ -640,6 +678,14 @@ const ta: Dict = {
   diet_omnivore: 'Omnivore',
   diet_churrasco: 'Churrasco',
   diet_sad: 'Standard American diet',
+
+
+  chat_opening: 'வணக்கம்! உங்கள் கார்பன் அளவு பார்த்தேன் — இந்த மாதம் {total} kg. உங்கள் {highest} அதிகமாக உள்ளது. பேசலாமா?',
+
+  country_IN: 'இந்தியா', country_NG: 'நைஜீரியா', country_DE: 'ஜெர்மனி', country_BR: 'பிரேசில்', country_KE: 'கென்யா', country_US: 'அமெரிக்கா',
+
+  emo_zero: 'ஏறக்குறைய பூஜ்யம் — மிக நன்று! 🌱',
+  emo_IN_transport: '= {n} ஆட்டோ பயணங்கள்', emo_IN_food: '= {n} ரொட்டிகள் சமைக்க எரிவாயு', emo_IN_energy: '= {n} மாதங்கள் விசிறி இயக்க', emo_IN_shopping: '= {n} பருத்தி குர்த்தா உற்பத்தி', emo_NG_transport: '= {n} டான்ஃபோ பயணங்கள்', emo_NG_food: '= {n} ஜோலோஃப் ரைஸ் முலாம் பாத்திரம்', emo_NG_energy: '= {n} மாதங்கள் ஜெனரேட்டர் எரிபொருள்', emo_NG_shopping: '= {n} சந்தை கொள்முதல்', emo_DE_transport: '= {n} S-Bahn பயணங்கள்', emo_DE_food: '= {n} கிலோ மாட்டிறைச்சி', emo_DE_energy: '= {n} துணி துவைக்கும் சுற்றுகள்', emo_DE_shopping: '= {n} ஃபாஸ்ட்-ஃபேஷன் ஜாக்கெட்டுகள்', emo_BR_transport: '= {n} உபர் பயணங்கள்', emo_BR_food: '= {n} சுராஸ்கோ உணவுகள்', emo_BR_energy: '= {n} மணிநேரம் AC', emo_BR_shopping: '= {n} ஹவாயனாஸ் ஜோடிகள்', emo_KE_transport: '= {n} மட்டாத்து பயணங்கள்', emo_KE_food: '= {n} நியாமா சோமா பரிமாறல்', emo_KE_energy: '= {n} மாதங்கள் வீட்டு மின்சாரம்', emo_KE_shopping: '= {n} கிடெங்கே துணி', emo_US_transport: '= {n} கார் கம்யூட் பயணங்கள்', emo_US_food: '= {n} பர்கர்கள்', emo_US_energy: '= {n} நாட்கள் AC', emo_US_shopping: '= {n} ஸ்னீக்கர் ஜோடிகள்',
 };
 
 /* ═══════════════════════════════════════
@@ -789,6 +835,14 @@ const te: Dict = {
   diet_omnivore: 'Omnivore',
   diet_churrasco: 'Churrasco',
   diet_sad: 'Standard American diet',
+
+
+  chat_opening: 'నమస్కారం! మీ కార్బన్ ఫుట్‌ప్రింట్ చూశాను — ఈ నెల {total} kg. మీ {highest} అత్యధికంగా ఉంది. మాట్లాడదామా?',
+
+  country_IN: 'భారతదేశం', country_NG: 'నైజీరియా', country_DE: 'జర్మనీ', country_BR: 'బ్రెజిల్', country_KE: 'కెన్యా', country_US: 'అమెరికా',
+
+  emo_zero: 'దాదాపు సున్నా — చాలా బాగుంది! 🌱',
+  emo_IN_transport: '= {n} ఆటో ప్రయాణాలు', emo_IN_food: '= {n} రొట్టెలు వండటానికి గ్యాస్', emo_IN_energy: '= {n} నెలలు పంఖా నడవడం', emo_IN_shopping: '= {n} పత్తి కుర్తాల తయారీ', emo_NG_transport: '= {n} డాన్ఫో రైడ్లు', emo_NG_food: '= {n} జోలోఫ్ రైస్ పాత్రలు', emo_NG_energy: '= {n} నెలల జనరేటర్ ఇంధనం', emo_NG_shopping: '= {n} మార్కెట్ కొనుగోళ్లు', emo_DE_transport: '= {n} S-Bahn ప్రయాణాలు', emo_DE_food: '= {n} కిలోల బీఫ్', emo_DE_energy: '= {n} బట్టలు ఉతక రౌండ్లు', emo_DE_shopping: '= {n} ఫాస్ట్-ఫ్యాషన్ జాకెట్లు', emo_BR_transport: '= {n} ఉబర్ రైడ్లు', emo_BR_food: '= {n} చురాస్కో భోజనాలు', emo_BR_energy: '= {n} గంటల AC', emo_BR_shopping: '= {n} హవాయనాస్ జతలు', emo_KE_transport: '= {n} మటాతు ప్రయాణాలు', emo_KE_food: '= {n} న్యామా చోమా సర్వింగ్లు', emo_KE_energy: '= {n} నెలల ఇంటి విద్యుత్', emo_KE_shopping: '= {n} కిటెంగే బట్టలు', emo_US_transport: '= {n} కారు కమ్యూట్ ట్రిప్లు', emo_US_food: '= {n} బర్గర్లు', emo_US_energy: '= {n} రోజుల AC', emo_US_shopping: '= {n} స్నీకర్ జతలు',
 };
 
 /* ═══════════════════════════════════════
@@ -934,6 +988,14 @@ const yo: Dict = {
   diet_omnivore: 'Ẹran lójúmọ́',
   diet_churrasco: 'Ẹran lójúmọ́',
   diet_sad: 'Ẹran lójúmọ́',
+
+
+  chat_opening: 'Ẹ káàbọ̀! Mo wo ìtọpasẹ carbon rẹ — oṣù yìí {total} kg. {highest} rẹ ga jùlọ. Jẹ́ ká sọrọ?',
+
+  country_IN: 'India', country_NG: 'Nàìjíríà', country_DE: 'Jamani', country_BR: 'Brazil', country_KE: 'Kenya', country_US: 'America',
+
+  emo_zero: 'Tókù tó pọ̀ — dáradára! 🌱',
+  emo_IN_transport: '= {n} oko oju-irin', emo_IN_food: '= {n} ero buka gaasi', emo_IN_energy: '= {n} oṣù fàn nínú', emo_IN_shopping: '= {n} aṣọ kọ́tìn', emo_NG_transport: '= {n} ọkọ danfo', emo_NG_food: '= {n} ikoko jollof rice', emo_NG_energy: '= {n} oṣù ina generator', emo_NG_shopping: '= {n} iṣowo ọjà', emo_DE_transport: '= {n} S-Bahn irin-ajo', emo_DE_food: '= {n} kìlọ ẹran', emo_DE_energy: '= {n} iṣẹ aṣọ', emo_DE_shopping: '= {n} aṣọ tuntun', emo_BR_transport: '= {n} Uber irin-ajo', emo_BR_food: '= {n} oúnjẹ churrasco', emo_BR_energy: '= {n} wákàtí aṣọ', emo_BR_shopping: '= {n} Havaianas pair', emo_KE_transport: '= {n} matatu irin-ajo', emo_KE_food: '= {n} nyama choma', emo_KE_energy: '= {n} oṣù iná ilé', emo_KE_shopping: '= {n} kitenge aṣọ', emo_US_transport: '= {n} ọkọ ayọkẹlẹ', emo_US_food: '= {n} burger', emo_US_energy: '= {n} ọjọ AC', emo_US_shopping: '= {n} sneakers pair',
 };
 
 /* ═══════════════════════════════════════
@@ -1078,6 +1140,14 @@ const ha: Dict = {
   diet_omnivore: 'Nama kowace rana',
   diet_churrasco: 'Nama kowace rana',
   diet_sad: 'Nama kowace rana',
+
+
+  chat_opening: 'Barka! Na duba sawun carbon ɗinku — wannan watan {total} kg. {highest} ɗinku ita ce mafi girma. Za mu yi magana?',
+
+  country_IN: 'Indiya', country_NG: 'Najeriya', country_DE: 'Jamus', country_BR: 'Brazil', country_KE: 'Kenya', country_US: 'Amurka',
+
+  emo_zero: 'Kusan sifiri — mai kyau! 🌱',
+  emo_IN_transport: '= {n} tafiya da auto', emo_IN_food: '= {n} roti gas dafa', emo_IN_energy: '= {n} wata fan aiki', emo_IN_shopping: '= {n} kurtar auduga', emo_NG_transport: '= {n} danfo hawa', emo_NG_food: '= {n} tukunya jollof', emo_NG_energy: '= {n} wata janareta', emo_NG_shopping: '= {n} sayen kasuwa', emo_DE_transport: '= {n} S-Bahn tafiya', emo_DE_food: '= {n} kilo naman sa', emo_DE_energy: '= {n} wanki gyale', emo_DE_shopping: '= {n} hular zamani', emo_BR_transport: '= {n} Uber hawa', emo_BR_food: '= {n} churrasco abinci', emo_BR_energy: "= {n} sa'a AC", emo_BR_shopping: '= {n} Havaianas biyu', emo_KE_transport: '= {n} matatu hawa', emo_KE_food: '= {n} nyama choma', emo_KE_energy: '= {n} wata wutar lantarki', emo_KE_shopping: '= {n} kitenge zane', emo_US_transport: '= {n} mota tafiya', emo_US_food: '= {n} burger', emo_US_energy: '= {n} rana AC', emo_US_shopping: '= {n} sneakers biyu',
 };
 
 /* ═══════════════════════════════════════
@@ -1222,6 +1292,14 @@ const ig: Dict = {
   diet_omnivore: 'Anụ kwa ụbọchị',
   diet_churrasco: 'Anụ kwa ụbọchị',
   diet_sad: 'Anụ kwa ụbọchị',
+
+
+  chat_opening: 'Nnọọ! M lelere ntọala carbon gị — ọnwa a {total} kg. {highest} gị kacha. Ka mkparịta ụka?',
+
+  country_IN: 'India', country_NG: 'Naịjịrịa', country_DE: 'Germany', country_BR: 'Brazil', country_KE: 'Kenya', country_US: 'America',
+
+  emo_zero: 'Fọrọ fọrụ efu — ihe ị ga ejị ụtọ! 🌱',
+  emo_IN_transport: '= {n} njem auto', emo_IN_food: '= {n} roti gas esi', emo_IN_energy: '= {n} ọnwa fan na-aga', emo_IN_shopping: '= {n} uwe oghoo', emo_NG_transport: '= {n} njem danfo', emo_NG_food: '= {n} ite jollof', emo_NG_energy: '= {n} ọnwa generator mmanụ', emo_NG_shopping: '= {n} ahịa mpaghara', emo_DE_transport: '= {n} S-Bahn njem', emo_DE_food: '= {n} kilo anụ ehi', emo_DE_energy: '= {n} ịsa uwe', emo_DE_shopping: '= {n} uwe ọhụrụ', emo_BR_transport: '= {n} Uber njem', emo_BR_food: '= {n} nri churrasco', emo_BR_energy: '= {n} elekere AC', emo_BR_shopping: '= {n} Havaianas abụọ', emo_KE_transport: '= {n} matatu njem', emo_KE_food: '= {n} nyama choma', emo_KE_energy: '= {n} ọnwa ọkụ ụlọ', emo_KE_shopping: '= {n} kitenge ákwà', emo_US_transport: '= {n} ụgbọala njem', emo_US_food: '= {n} burger', emo_US_energy: '= {n} ụbọchị AC', emo_US_shopping: '= {n} sneakers abụọ',
 };
 
 /* ═══════════════════════════════════════
@@ -1366,6 +1444,14 @@ const de: Dict = {
   diet_omnivore: 'Alles (täglich Fleisch)',
   diet_churrasco: 'Alles (täglich Fleisch)',
   diet_sad: 'Alles (täglich Fleisch)',
+
+
+  chat_opening: 'Hallo! Ich habe deinen CO₂-Fußabdruck angeschaut — diesen Monat {total} kg. Dein {highest} ist am höchsten. Sollen wir darüber reden?',
+
+  country_IN: 'Indien', country_NG: 'Nigeria', country_DE: 'Deutschland', country_BR: 'Brasilien', country_KE: 'Kenia', country_US: 'USA',
+
+  emo_zero: 'Fast null — super! 🌱',
+  emo_IN_transport: '= {n} Autorikscha-Fahrten', emo_IN_food: '= {n} Rotis Kochgas', emo_IN_energy: '= {n} Monate Deckenventilator', emo_IN_shopping: '= {n} Baumwollkurtas', emo_NG_transport: '= {n} Danfo-Fahrten', emo_NG_food: '= {n} Jollof-Reis-Töpfe', emo_NG_energy: '= {n} Monate Generator', emo_NG_shopping: '= {n} Markteinkäufe', emo_DE_transport: '= {n} S-Bahn-Fahrten', emo_DE_food: '= {n} kg Rindfleisch', emo_DE_energy: '= {n} Waschladungen', emo_DE_shopping: '= {n} Fast-Fashion-Jacken', emo_BR_transport: '= {n} Uber-Fahrten', emo_BR_food: '= {n} Churrasco-Mahlzeiten', emo_BR_energy: '= {n} Stunden Klimaanlage', emo_BR_shopping: '= {n} Havaianas-Paare', emo_KE_transport: '= {n} Matatu-Fahrten', emo_KE_food: '= {n} Nyama-Choma-Portionen', emo_KE_energy: '= {n} Monate Haushaltsstrom', emo_KE_shopping: '= {n} Kitenge-Stoffe', emo_US_transport: '= {n} Pendelfahrten', emo_US_food: '= {n} Burger', emo_US_energy: '= {n} Tage Klimaanlage', emo_US_shopping: '= {n} Sneaker-Paare',
 };
 
 /* ═══════════════════════════════════════
@@ -1510,6 +1596,14 @@ const pt: Dict = {
   diet_omnivore: 'Churrasco (carne todo dia)',
   diet_churrasco: 'Churrasco (carne todo dia)',
   diet_sad: 'Churrasco (carne todo dia)',
+
+
+  chat_opening: 'Olá! Vi sua pegada de carbono — esse mês {total} kg. Sua {highest} é a maior. Vamos conversar?',
+
+  country_IN: 'Índia', country_NG: 'Nigéria', country_DE: 'Alemanha', country_BR: 'Brasil', country_KE: 'Quênia', country_US: 'EUA',
+
+  emo_zero: 'Quase zero — muito bem! 🌱',
+  emo_IN_transport: '= {n} viagens de auto', emo_IN_food: '= {n} rotis de gás', emo_IN_energy: '= {n} meses de ventilador', emo_IN_shopping: '= {n} kurtas de algodão', emo_NG_transport: '= {n} viagens de danfo', emo_NG_food: '= {n} panelas de jollof', emo_NG_energy: '= {n} meses de gerador', emo_NG_shopping: '= {n} compras no mercado', emo_DE_transport: '= {n} viagens de S-Bahn', emo_DE_food: '= {n} kg de carne', emo_DE_energy: '= {n} lavagens de roupa', emo_DE_shopping: '= {n} jaquetas fast-fashion', emo_BR_transport: '= {n} viagens de Uber', emo_BR_food: '= {n} refeições de churrasco', emo_BR_energy: '= {n} horas de ar condicionado', emo_BR_shopping: '= {n} pares de Havaianas', emo_KE_transport: '= {n} viagens de matatu', emo_KE_food: '= {n} porções de nyama choma', emo_KE_energy: '= {n} meses de eletricidade', emo_KE_shopping: '= {n} tecidos kitenge', emo_US_transport: '= {n} viagens de carro', emo_US_food: '= {n} hambúrgueres', emo_US_energy: '= {n} dias de ar condicionado', emo_US_shopping: '= {n} pares de tênis',
 };
 
 /* ═══════════════════════════════════════
@@ -1654,6 +1748,14 @@ const es: Dict = {
   diet_omnivore: 'Como carne todos los días',
   diet_churrasco: 'Como carne todos los días',
   diet_sad: 'Como carne todos los días',
+
+
+  chat_opening: '¡Hola! Vi tu huella de carbono — este mes {total} kg. Tu {highest} es la mayor. ¿Hablamos?',
+
+  country_IN: 'India', country_NG: 'Nigeria', country_DE: 'Alemania', country_BR: 'Brasil', country_KE: 'Kenia', country_US: 'EE. UU.',
+
+  emo_zero: 'Casi cero — ¡muy bien! 🌱',
+  emo_IN_transport: '= {n} viajes en auto', emo_IN_food: '= {n} rotis de gas', emo_IN_energy: '= {n} meses de ventilador', emo_IN_shopping: '= {n} kurtas de algodón', emo_NG_transport: '= {n} viajes en danfo', emo_NG_food: '= {n} ollas de jollof', emo_NG_energy: '= {n} meses de generador', emo_NG_shopping: '= {n} compras en el mercado', emo_DE_transport: '= {n} viajes en S-Bahn', emo_DE_food: '= {n} kg de carne', emo_DE_energy: '= {n} lavadas de ropa', emo_DE_shopping: '= {n} chaquetas fast-fashion', emo_BR_transport: '= {n} viajes en Uber', emo_BR_food: '= {n} comidas de churrasco', emo_BR_energy: '= {n} horas de aire acondicionado', emo_BR_shopping: '= {n} pares de Havaianas', emo_KE_transport: '= {n} viajes en matatu', emo_KE_food: '= {n} porciones de nyama choma', emo_KE_energy: '= {n} meses de electricidad', emo_KE_shopping: '= {n} telas kitenge', emo_US_transport: '= {n} viajes en coche', emo_US_food: '= {n} hamburguesas', emo_US_energy: '= {n} días de aire acondicionado', emo_US_shopping: '= {n} pares de zapatillas',
 };
 
 /* ═══════════════════════════════════════
@@ -1798,6 +1900,14 @@ const sw: Dict = {
   diet_omnivore: 'Nyama kila siku',
   diet_churrasco: 'Nyama kila siku',
   diet_sad: 'Nyama kila siku',
+
+
+  chat_opening: 'Habari! Nimeangalia alama yako ya kaboni — mwezi huu {total} kg. {highest} yako ndiyo kubwa zaidi. Tuongee?',
+
+  country_IN: 'India', country_NG: 'Nigeria', country_DE: 'Ujerumani', country_BR: 'Brazil', country_KE: 'Kenya', country_US: 'Marekani',
+
+  emo_zero: 'Karibu sufuri — vizuri sana! 🌱',
+  emo_IN_transport: '= {n} masafiri ya auto', emo_IN_food: '= {n} roti ya kupika gas', emo_IN_energy: '= {n} miezi ya upepo', emo_IN_shopping: '= {n} kurtas ya pamba', emo_NG_transport: '= {n} masafiri ya danfo', emo_NG_food: '= {n} sufuria ya jollof', emo_NG_energy: '= {n} miezi ya jenereta', emo_NG_shopping: '= {n} manunuzi ya soko', emo_DE_transport: '= {n} masafiri ya S-Bahn', emo_DE_food: '= {n} kilo ya nyama', emo_DE_energy: '= {n} mabadiliko ya nguo', emo_DE_shopping: '= {n} viatu vya mtindo', emo_BR_transport: '= {n} masafiri ya Uber', emo_BR_food: '= {n} milo ya churrasco', emo_BR_energy: '= {n} masaa ya kiyoyozi', emo_BR_shopping: '= {n} jozi za Havaianas', emo_KE_transport: '= {n} masafiri ya matatu', emo_KE_food: '= {n} seva za nyama choma', emo_KE_energy: '= {n} miezi ya umeme', emo_KE_shopping: '= {n} vitambaa vya kitenge', emo_US_transport: '= {n} safari za gari', emo_US_food: '= {n} burger', emo_US_energy: '= {n} siku za kiyoyozi', emo_US_shopping: '= {n} jozi za viatu',
 };
 
 export const translations: Record<string, Dict> = {

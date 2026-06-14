@@ -4,6 +4,7 @@ import { CountryCode } from '../data/countries';
 import countries from '../data/countries';
 import { QuizAnswers } from '../utils/calculator';
 import { useLanguage } from '../contexts/LanguageContext';
+import { TranslationKey } from '../translations';
 
 interface Props {
   countryCode: CountryCode;
@@ -35,14 +36,14 @@ export default function Quiz({ countryCode, onSubmit, onBack }: Props) {
             <button
               key={opt.id}
               onClick={() => setTransportId(opt.id)}
-              aria-label={`Select ${opt.label}`}
+              aria-label={`Select ${t('transport_' + opt.id as TranslationKey)}`}
               className={`w-full py-3 px-4 rounded-xl text-left text-sm font-medium transition-all duration-200 ${
                 transportId === opt.id
                   ? 'bg-breathe-green text-white shadow-md shadow-breathe-green/20'
                   : 'bg-white text-gray-700 border border-gray-100 hover:border-breathe-green/30'
               }`}
             >
-              {opt.label}
+              {t('transport_' + opt.id as TranslationKey)}
             </button>
           ))}
           <div className="mt-4">
@@ -74,14 +75,14 @@ export default function Quiz({ countryCode, onSubmit, onBack }: Props) {
             <button
               key={opt.id}
               onClick={() => setDietId(opt.id)}
-              aria-label={`Select ${opt.label}`}
+              aria-label={`Select ${t('diet_' + opt.id as TranslationKey)}`}
               className={`w-full py-3 px-4 rounded-xl text-left text-sm font-medium transition-all duration-200 ${
                 dietId === opt.id
                   ? 'bg-breathe-green text-white shadow-md shadow-breathe-green/20'
                   : 'bg-white text-gray-700 border border-gray-100 hover:border-breathe-green/30'
               }`}
             >
-              {opt.label}
+              {t('diet_' + opt.id as TranslationKey)}
             </button>
           ))}
         </div>
