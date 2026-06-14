@@ -1,11 +1,14 @@
 import { useState } from 'react';
-import { Truck, Carrot, Zap, ShoppingBag, Leaf, Save, Check } from 'lucide-react';
+import { Truck, Carrot, Zap, ShoppingBag, Leaf, Save, Check, RotateCcw } from 'lucide-react';
 import { CountryCode } from '../data/countries';
 import countries from '../data/countries';
 import { FootprintBreakdown, QuizAnswers, getComparisonBars, getEmotionalEquivalent } from '../utils/calculator';
 import { saveToHistory } from '../utils/history';
 import WhatIfSimulator from './WhatIfSimulator';
 import ChatBot from './ChatBot';
+import ShareCard from './ShareCard';
+import HistoryChart from './HistoryChart';
+import { getHistory } from '../utils/history';
 import { useLanguage } from '../contexts/LanguageContext';
 import { TranslationKey } from '../translations';
 
@@ -15,11 +18,14 @@ interface Props {
   breakdown: FootprintBreakdown;
   answers: QuizAnswers;
   regionId?: string;
+  onRetake: () => void;
+  onStartOver: () => void;
 }
 
-export default function Dashboard({ countryCode, languageCode, breakdown, answers, regionId }: Props) {
+export default function Dashboard({ countryCode, languageCode, breakdown, answers, regionId, onRetake, onStartOver }: Props) {
   const { t } = useLanguage();
   const country = countries[countryCode];
+  const history = getHistory();
   const comparisons = getComparisonBars(breakdown, countryCode);
   const [saved, setSaved] = useState(false);
 
@@ -157,6 +163,36 @@ export default function Dashboard({ countryCode, languageCode, breakdown, answer
             answers={answers}
             regionId={regionId}
           />
+        </div>
+
+        <div className="mt-6">
+          <ShareCard
+            countryCode={countryCode}
+            breakdown={breakdown}
+            regionId={regionId}
+          />
+        </div>
+
+        {history.length > 1 && (
+          <div className="mt-6">
+            <HistoryChart entries={history} />
+          </div>
+        )}
+
+        <div className="mt-8 space-y-2">
+          <button
+            onClick={onRetake}
+            className="w-full py-3 rounded-xl text-gray-500 text-sm font-medium flex items-center justify-center gap-2 hover:text-breathe-green transition-colors border border-gray-200 hover:border-breathe-green/30"
+          >
+            <RotateCcw size={14} />
+            {t('cs_retake')}
+          </button>
+          <button
+            onClick={onStartOver}
+            className="w-full py-3 rounded-xl text-gray-500 text-sm font-medium flex items-center justify-center gap-2 hover:text-gray-700 transition-colors border border-gray-200"
+          >
+            {t('app_startOver')}
+          </button>
         </div>
       </div>
     </div>

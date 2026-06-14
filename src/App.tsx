@@ -6,9 +6,6 @@ import CountrySelector from './components/CountrySelector';
 import LanguageSelector from './components/LanguageSelector';
 import Quiz from './components/Quiz';
 import Dashboard from './components/Dashboard';
-import ShareCard from './components/ShareCard';
-import HistoryChart from './components/HistoryChart';
-import { getHistory } from './utils/history';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 
 const STORAGE_KEY = 'breathe_state';
@@ -27,9 +24,6 @@ interface AppContentProps {
 }
 
 function AppContent({ state, setState }: AppContentProps) {
-  const { t } = useLanguage();
-  const history = getHistory();
-
   const handleCountrySelect = (code: CountryCode) => {
     setState((s) => ({ ...s, screen: 1, countryCode: code }));
   };
@@ -90,6 +84,8 @@ function AppContent({ state, setState }: AppContentProps) {
           breakdown={state.breakdown}
           answers={state.answers}
           regionId={state.answers?.regionId}
+          onRetake={() => setState((s) => ({ ...s, screen: 2 }))}
+          onStartOver={handleStartOver}
         />
       )}
 
