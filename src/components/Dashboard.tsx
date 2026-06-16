@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Truck, Carrot, Zap, ShoppingBag, Leaf, Save, Check } from 'lucide-react';
+import { Truck, Carrot, Zap, ShoppingBag, Leaf, Save, Check, RotateCcw } from 'lucide-react';
 import { CountryCode } from '../data/countries';
 import countries from '../data/countries';
 import { FootprintBreakdown, QuizAnswers, getComparisonBars, getEmotionalEquivalent } from '../utils/calculator';
@@ -15,9 +15,10 @@ interface Props {
   breakdown: FootprintBreakdown;
   answers: QuizAnswers;
   regionId?: string;
+  onStartOver: () => void;
 }
 
-export default function Dashboard({ countryCode, languageCode, breakdown, answers, regionId }: Props) {
+export default function Dashboard({ countryCode, languageCode, breakdown, answers, regionId, onStartOver }: Props) {
   const { t } = useLanguage();
   const country = countries[countryCode];
   const comparisons = getComparisonBars(breakdown, countryCode);
@@ -55,6 +56,21 @@ export default function Dashboard({ countryCode, languageCode, breakdown, answer
   return (
     <div className="fade-in min-h-screen px-4 py-8 pb-16">
       <div className="max-w-lg mx-auto">
+        {/* Top Header Navigation */}
+        <div className="flex justify-between items-center mb-8 border-b border-gray-100 pb-3">
+          <div className="text-gray-500 text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5">
+            <span className="text-lg leading-none">{country.flag}</span>
+            <span>{country.name}</span>
+          </div>
+          <button
+            onClick={onStartOver}
+            aria-label="Start over"
+            className="text-gray-400 hover:text-breathe-green text-xs font-bold uppercase tracking-wider transition-colors flex items-center gap-1.5"
+          >
+            <RotateCcw size={12} /> {t('app_startOver')}
+          </button>
+        </div>
+
         {/* Score */}
         <div className="text-center mb-10 score-appear">
           <div className="inline-flex items-center gap-2 bg-breathe-green/10 text-breathe-green text-xs font-medium px-3 py-1 rounded-full mb-5">
@@ -157,6 +173,16 @@ export default function Dashboard({ countryCode, languageCode, breakdown, answer
             answers={answers}
             regionId={regionId}
           />
+        </div>
+
+        <div className="mt-8 flex justify-center border-t border-gray-100 pt-6">
+          <button
+            onClick={onStartOver}
+            aria-label="Start over"
+            className="text-gray-400 hover:text-breathe-green text-sm font-semibold transition-colors flex items-center gap-1.5"
+          >
+            <RotateCcw size={14} /> {t('app_startOver')}
+          </button>
         </div>
       </div>
     </div>

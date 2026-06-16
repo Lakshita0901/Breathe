@@ -1,15 +1,12 @@
 import { useState, useEffect } from 'react';
 import { CountryCode } from './data/countries';
-import countries from './data/countries';
 import { QuizAnswers, FootprintBreakdown, calculateFootprint } from './utils/calculator';
+import LandingHero from './components/LandingHero';
 import CountrySelector from './components/CountrySelector';
 import LanguageSelector from './components/LanguageSelector';
 import Quiz from './components/Quiz';
 import Dashboard from './components/Dashboard';
-import ShareCard from './components/ShareCard';
-import HistoryChart from './components/HistoryChart';
-import { getHistory } from './utils/history';
-import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
+import { LanguageProvider } from './contexts/LanguageContext';
 
 const STORAGE_KEY = 'breathe_state';
 
@@ -27,15 +24,12 @@ interface AppContentProps {
 }
 
 function AppContent({ state, setState }: AppContentProps) {
-  const { t } = useLanguage();
-  const history = getHistory();
-
   const handleCountrySelect = (code: CountryCode) => {
-    setState((s) => ({ ...s, screen: 1, countryCode: code }));
+    setState((s) => ({ ...s, screen: 2, countryCode: code }));
   };
 
   const handleLanguageSelect = (langCode: string) => {
-    setState((s) => ({ ...s, screen: 2, languageCode: langCode }));
+    setState((s) => ({ ...s, screen: 3, languageCode: langCode }));
   };
 
   const handleQuizSubmit = (answers: QuizAnswers) => {
@@ -44,7 +38,7 @@ function AppContent({ state, setState }: AppContentProps) {
       localStorage.setItem('breathe_quiz_answers', JSON.stringify(answers));
     } catch { /* ignore */ }
     const breakdown = calculateFootprint(state.countryCode, answers);
-    setState((s) => ({ ...s, screen: 3, answers, breakdown }));
+    setState((s) => ({ ...s, screen: 4, answers, breakdown }));
   };
 
   const handleStartOver = () => {
@@ -57,39 +51,44 @@ function AppContent({ state, setState }: AppContentProps) {
 
   const handleViewHistory = () => {
     if (state.countryCode) {
-      setState((s) => ({ ...s, screen: 1 }));
+      setState((s) => ({ ...s, screen: 2 }));
     }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {state.screen === 0 && (
+        <LandingHero onStart={() => setState((s) => ({ ...s, screen: 1 }))} />
+      )}
+
+      {state.screen === 1 && (
         <CountrySelector onSelect={handleCountrySelect} onViewHistory={handleViewHistory} />
       )}
 
-      {state.screen === 1 && state.countryCode && (
+      {state.screen === 2 && state.countryCode && (
         <LanguageSelector
           countryCode={state.countryCode}
           onSelect={handleLanguageSelect}
-          onBack={() => setState((s) => ({ ...s, screen: 0 }))}
-        />
-      )}
-
-      {state.screen === 2 && state.countryCode && (
-        <Quiz
-          countryCode={state.countryCode}
-          onSubmit={handleQuizSubmit}
           onBack={() => setState((s) => ({ ...s, screen: 1 }))}
         />
       )}
 
-      {state.screen === 3 && state.countryCode && state.languageCode && state.breakdown && state.answers && (
+      {state.screen === 3 && state.countryCode && (
+        <Quiz
+          countryCode={state.countryCode}
+          onSubmit={handleQuizSubmit}
+          onBack={() => setState((s) => ({ ...s, screen: 2 }))}
+        />
+      )}
+
+      {state.screen === 4 && state.countryCode && state.languageCode && state.breakdown && state.answers && (
         <Dashboard
           countryCode={state.countryCode}
           languageCode={state.languageCode}
           breakdown={state.breakdown}
           answers={state.answers}
           regionId={state.answers?.regionId}
+          onStartOver={handleStartOver}
         />
       )}
 
@@ -111,7 +110,17 @@ function App() {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved) as AppState;
-        if (parsed.screen > 0 && parsed.countryCode) {
+        
+        // Migrate old screen indices to new screen indices:
+        if (parsed.countryCode) {
+          if (parsed.screen === 1) parsed.screen = 2;
+          else if (parsed.screen === 2) parsed.screen = 3;
+          else if (parsed.screen === 3) parsed.screen = 4;
+        } else {
+          parsed.screen = 0;
+        }
+
+        if (parsed.screen > 1 && parsed.countryCode) {
           setState(parsed);
         }
       }
@@ -119,7 +128,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (state.screen > 1) {
+    if (state.screen > 2) {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       } catch { /* ignore */ }
@@ -132,5 +141,6 @@ function App() {
     </LanguageProvider>
   );
 }
+
 
 export default App;
