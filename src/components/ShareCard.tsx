@@ -4,27 +4,32 @@ import { CountryCode } from '../data/countries';
 import countries from '../data/countries';
 import { FootprintBreakdown, getEmotionalEquivalent } from '../utils/calculator';
 import { useLanguage } from '../contexts/LanguageContext';
+import { TranslationKey } from '../translations';
 
 interface Props {
   countryCode: CountryCode;
   breakdown: FootprintBreakdown;
   regionId?: string;
+  languageCode: string;
 }
 
-export default function ShareCard({ countryCode, breakdown, regionId }: Props) {
-  const { t } = useLanguage();
-  const country = countries[countryCode];
+export default function ShareCard({ countryCode, breakdown, regionId, languageCode }: Props) {
+  const { t, lang } = useLanguage();
+  const localCountryName = t(`country_${countryCode}` as TranslationKey);
   const [copied, setCopied] = useState(false);
 
-  const totalEmotional = getEmotionalEquivalent(countryCode, 'total', breakdown.total, regionId);
+  const totalEmotional = getEmotionalEquivalent(countryCode, 'total', breakdown.total, regionId, lang);
+
+  const moodKey = `mood_${breakdown.mood}` as TranslationKey;
+  const translatedMood = t(moodKey);
 
   const shareText = `${t('share_myFootprint', { n: Math.round(breakdown.total) })}
 
-${breakdown.moodEmoji} ${breakdown.moodText}
+${breakdown.moodEmoji} ${translatedMood}
 
 ${t('dash_transport')}: ${Math.round(breakdown.transport)} kg | ${t('dash_food')}: ${Math.round(breakdown.food)} kg | ${t('dash_energy')}: ${Math.round(breakdown.energy)} kg | ${t('dash_shopping')}: ${Math.round(breakdown.shopping)} kg
 
-${t('share_pctOfAvg', { n: Math.round(breakdown.pctOfAvg), country: country.name })}
+${t('share_pctOfAvg', { n: Math.round(breakdown.pctOfAvg), country: localCountryName })}
 
 ${totalEmotional}
 
@@ -63,7 +68,7 @@ ${t('share_tagline')}
           {Math.round(breakdown.total)} <span className="text-sm font-normal text-gray-400">{t('cs_kgPerMonth')}</span>
         </p>
         <p className="text-sm text-gray-500 mb-3">
-          {breakdown.moodEmoji} {breakdown.moodText}
+          {breakdown.moodEmoji} {translatedMood}
         </p>
         <div className="flex flex-wrap gap-2 mb-3">
           <span className="text-xs bg-white/80 text-gray-600 px-2 py-1 rounded-lg">{t('dash_transport')} {Math.round(breakdown.transport)}</span>
@@ -71,7 +76,7 @@ ${t('share_tagline')}
           <span className="text-xs bg-white/80 text-gray-600 px-2 py-1 rounded-lg">{t('dash_energy')} {Math.round(breakdown.energy)}</span>
           <span className="text-xs bg-white/80 text-gray-600 px-2 py-1 rounded-lg">{t('dash_shopping')} {Math.round(breakdown.shopping)}</span>
         </div>
-        <p className="text-xs text-gray-400">{t('share_pctOfAvg', { n: Math.round(breakdown.pctOfAvg), country: country.name })}</p>
+        <p className="text-xs text-gray-400">{t('share_pctOfAvg', { n: Math.round(breakdown.pctOfAvg), country: localCountryName })}</p>
         <p className="text-xs text-gray-400 italic mt-1">{totalEmotional}</p>
         <p className="text-xs text-breathe-green/60 mt-3 font-medium">{t('share_tagline')}</p>
       </div>

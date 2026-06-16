@@ -25,21 +25,29 @@ const LANGUAGE_NAMES: Record<string, string> = {
   es: 'Spanish', sw: 'Swahili',
 };
 
-const SAMPLE_OPENINGS: Record<string, string> = {
-  IN: "I've looked at your footprint and I can see your transport is the biggest contributor. Your vegetarian diet is already making a real difference though! Ask me anything about lowering your impact.",
-  NG: "Your footprint is here! Your daily commute adds the most, but your plant-heavy diet is a real strength. Feel free to ask me anything about your score.",
-  DE: "I've analyzed your footprint. Your car use stands out the most, but your efficient home energy is worth celebrating. Ask me anything!",
-  BR: "Your footprint is ready! Transport is your biggest category, but your diet with rice and beans is already climate-friendly. What would you like to know?",
-  KE: "Here's your footprint! Your commute adds the most, but your plant-based diet is one of the lightest in the world. Ask me anything!",
-  US: "Your footprint is ready! Your car is the biggest contributor, but if you're eating less meat than average, that's genuinely helping. What would you like to know?",
+const CATEGORY_LABELS: Record<string, Record<string, string>> = {
+  en: { transport: 'transport', food: 'food', energy: 'energy', shopping: 'shopping' },
+  hi: { transport: '\u092A\u0930\u093F\u0935\u0939\u0928', food: '\u0916\u093E\u0928\u093E', energy: '\u092A\u0930\u094D\u092F\u094B\u091C\u0928', shopping: '\u0936\u0949\u092A\u093F\u0902\u0917' },
+  mr: { transport: '\u0935\u093E\u0939\u0924\u0942\u0915', food: '\u0905\u0928\u094D\u0928', energy: '\u090A\u0930\u094D\u091C\u093E', shopping: '\u0916\u0930\u0947\u0926\u0940' },
+  ta: { transport: '\u0BAA\u0BCB\u0B95\u0BCD\u0B95\u0BC1\u0BB5\u0BB0\u0BA4\u0BCD\u0BA4\u0BC1', food: '\u0B89\u0BA3\u0BB5\u0BC1', energy: '\u0B86\u0BB1\u0BCD\u0BB1\u0BB2\u0BCD', shopping: '\u0B95\u0B9F\u0BC8' },
+  te: { transport: '\u0C30\u0C35\u0C3E\u0C23\u0C3E', food: '\u0C06\u0C39\u0C3E\u0C30\u0C02', energy: '\u0C36\u0C15\u0C4D\u0C24\u0C3F', shopping: '\u0C37\u0C3E\u0C2A\u0C3F\u0C02\u0C17\u0C4D' },
+  yo: { transport: 'Gbigbe', food: 'Ounj\u1EB9', energy: 'Agbara', shopping: 'Rira' },
+  ha: { transport: 'Sufuri', food: 'Abinci', energy: 'Makamashin', shopping: 'Siyayya' },
+  ig: { transport: 'Njem', food: 'Nri', energy: 'Ike', shopping: '\u1ECAz\u1EE5 ah\u1ECB\u0300a' },
+  de: { transport: 'Verkehr', food: 'Ern\u00E4hrung', energy: 'Energie', shopping: 'Einkaufen' },
+  pt: { transport: 'Transporte', food: 'Alimenta\u00E7\u00E3o', energy: 'Energia', shopping: 'Compras' },
+  es: { transport: 'Transporte', food: 'Alimentaci\u00F3n', energy: 'Energ\u00EDa', shopping: 'Compras' },
+  sw: { transport: 'Usafiri', food: 'Chakula', energy: 'Nishati', shopping: 'Ununuzi' },
 };
 
 export default function ChatBot({ countryCode, languageCode, breakdown, answers, regionId }: Props) {
   const { t } = useLanguage();
   const country = countries[countryCode];
   const langName = LANGUAGE_NAMES[languageCode] ?? languageCode;
-  const transportLabel = country.transportOptions.find((o) => o.id === answers.transportId)?.label ?? answers.transportId;
-  const dietLabel = country.dietOptions.find((o) => o.id === answers.dietId)?.label ?? answers.dietId;
+  const localCategory = CATEGORY_LABELS[languageCode]?.[breakdown.highestCategory] ?? breakdown.highestCategory;
+  const transportLabel = t(`transport_${answers.transportId}` as TranslationKey);
+  const dietLabel = t(`diet_${answers.dietId}` as TranslationKey);
+  const localCountryName = t(`country_${countryCode}` as TranslationKey);
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
@@ -50,15 +58,15 @@ export default function ChatBot({ countryCode, languageCode, breakdown, answers,
 
   const chipKeys: TranslationKey[] = ['chat_chipBiggest', 'chat_chipEasyTip', 'chat_chipEnergy', 'chat_chipScore'];
 
-  const systemPrompt = `You are Breathe, a warm, caring carbon awareness coach. You speak like a thoughtful friend who genuinely cares. YOU MUST RESPOND IN ${langName}. Never respond in English unless ${langName} is English. Be specific, locally realistic, and encouraging about what is achievable in ${country.name}. Never suggest options unavailable there. Keep responses under 120 words. Conversational tone, no bullet points.
+  const systemPrompt = `You are Breathe, a warm, caring carbon awareness coach. You speak like a thoughtful friend who genuinely cares. YOU MUST RESPOND ONLY IN ${langName}. Never respond in English unless ${langName} is English. Be specific, locally realistic, and encouraging about what is achievable in ${localCountryName}. Never suggest options unavailable there. Keep responses under 120 words. Conversational tone, no bullet points.
 
-The user lives in ${country.name}${regionId ? `, region: ${regionId}` : ''}. Their monthly carbon footprint:
+The user lives in ${localCountryName}${regionId ? `, region: ${regionId}` : ''}. Their monthly carbon footprint:
 - Transport (${transportLabel}, ${answers.weeklyKm}km/week): ${Math.round(breakdown.transport)} kg CO2
 - Food (${dietLabel}): ${Math.round(breakdown.food)} kg CO2
 - Home energy (${answers.electricityKwh} kWh): ${Math.round(breakdown.energy)} kg CO2
 - Shopping: ${Math.round(breakdown.shopping)} kg CO2
-- Total: ${Math.round(breakdown.total)} kg/month (${Math.round(breakdown.pctOfAvg)}% of ${country.name} average of ${country.avgFootprint} kg/mo)
-- Highest category: ${breakdown.highestCategory}`;
+- Total: ${Math.round(breakdown.total)} kg/month (${Math.round(breakdown.pctOfAvg)}% of ${localCountryName} average of ${country.avgFootprint} kg/mo)
+- Highest category: ${localCategory}`;
 
   async function sendMessage(userContent: string) {
     if (!userContent.trim() || loading) return;
@@ -71,9 +79,8 @@ The user lives in ${country.name}${regionId ? `, region: ${regionId}` : ''}. The
 
     const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY;
     if (!apiKey || apiKey === 'your_key_here') {
-      const sampleReply = generateSampleReply(userContent);
       setTimeout(() => {
-        setMessages([...updatedMessages, { role: 'assistant', content: sampleReply }]);
+        setMessages([...updatedMessages, { role: 'assistant', content: localOpening() }]);
         setLoading(false);
         setUsingSample(true);
       }, 800);
@@ -111,45 +118,31 @@ The user lives in ${country.name}${regionId ? `, region: ${regionId}` : ''}. The
         throw new Error('No content in response');
       }
     } catch {
-      const sampleReply = generateSampleReply(userContent);
-      setMessages([...updatedMessages, { role: 'assistant', content: sampleReply }]);
+      setMessages([...updatedMessages, { role: 'assistant', content: localOpening() }]);
       setUsingSample(true);
     } finally {
       setLoading(false);
     }
   }
 
-  function generateSampleReply(question: string): string {
-    const q = question.toLowerCase();
-    if (q.includes('biggest') || q.includes('problem') || q.includes('largest')) {
-      return `Your biggest impact is ${breakdown.highestCategory} at ${Math.round(breakdown[breakdown.highestCategory])} kg CO2/month. That's ${Math.round((breakdown[breakdown.highestCategory] / breakdown.total) * 100)}% of your total footprint. Focus here for the biggest improvement.`;
-    }
-    if (q.includes('easy') || q.includes('tip') || q.includes('simple')) {
-      return `One easy win: try reducing your ${breakdown.highestCategory} by just 10%. That would save about ${Math.round(breakdown[breakdown.highestCategory] * 0.1)} kg CO2/month. Small changes add up when they become habits.`;
-    }
-    if (q.includes('energy') || q.includes('electricity')) {
-      return `Your energy use produces ${Math.round(breakdown.energy)} kg CO2/month. Switching to LED bulbs, unplugging devices, and using a clothes line instead of a dryer are easy ways to cut this down in ${country.name}.`;
-    }
-    if (q.includes('score') || q.includes('mean') || q.includes('result')) {
-      return `Your score of ${Math.round(breakdown.total)} kg CO2/month is ${Math.round(breakdown.pctOfAvg)}% of the ${country.name} average (${country.avgFootprint} kg). ${breakdown.pctOfAvg < 100 ? 'You\'re below average — great work!' : 'You\'re above average, but small changes can bring it down fast.'}`;
-    }
-    return SAMPLE_OPENINGS[countryCode] ?? SAMPLE_OPENINGS['US'];
+  function localOpening(): string {
+    return t('chat_opening', { total: Math.round(breakdown.total), highest: localCategory });
   }
 
   useEffect(() => {
     if (messages.length > 0) return;
 
+    const opening = localOpening();
     const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY;
     const noKey = !apiKey || apiKey === 'your_key_here';
 
     if (noKey) {
-      setMessages([{ role: 'assistant', content: SAMPLE_OPENINGS[countryCode] ?? SAMPLE_OPENINGS['US'] }]);
+      setMessages([{ role: 'assistant', content: opening }]);
       setUsingSample(true);
       return;
     }
 
     setLoading(true);
-    const openingPrompt = `Hi! I just calculated my carbon footprint. My total is ${Math.round(breakdown.total)} kg CO2/month in ${country.name}. Can you give me a quick overview?`;
 
     fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -162,7 +155,7 @@ The user lives in ${country.name}${regionId ? `, region: ${regionId}` : ''}. The
         model: 'claude-sonnet-4-20250514',
         max_tokens: 300,
         system: systemPrompt,
-        messages: [{ role: 'user', content: openingPrompt }],
+        messages: [{ role: 'user', content: opening }],
       }),
     })
       .then((res) => {
@@ -171,10 +164,10 @@ The user lives in ${country.name}${regionId ? `, region: ${regionId}` : ''}. The
       })
       .then((data) => {
         const text = data.content?.[0]?.text;
-        setMessages([{ role: 'assistant', content: text ?? SAMPLE_OPENINGS[countryCode] ?? SAMPLE_OPENINGS['US'] }]);
+        setMessages([{ role: 'assistant', content: text ?? opening }]);
       })
       .catch(() => {
-        setMessages([{ role: 'assistant', content: SAMPLE_OPENINGS[countryCode] ?? SAMPLE_OPENINGS['US'] }]);
+        setMessages([{ role: 'assistant', content: opening }]);
         setUsingSample(true);
       })
       .finally(() => setLoading(false));

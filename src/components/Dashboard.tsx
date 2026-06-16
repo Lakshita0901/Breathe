@@ -6,6 +6,9 @@ import { FootprintBreakdown, QuizAnswers, getComparisonBars, getEmotionalEquival
 import { saveToHistory } from '../utils/history';
 import WhatIfSimulator from './WhatIfSimulator';
 import ChatBot from './ChatBot';
+import ShareCard from './ShareCard';
+import HistoryChart from './HistoryChart';
+import { getHistory } from '../utils/history';
 import { useLanguage } from '../contexts/LanguageContext';
 import { TranslationKey } from '../translations';
 
@@ -15,12 +18,13 @@ interface Props {
   breakdown: FootprintBreakdown;
   answers: QuizAnswers;
   regionId?: string;
-  onStartOver: () => void;
 }
 
-export default function Dashboard({ countryCode, languageCode, breakdown, answers, regionId, onStartOver }: Props) {
+export default function Dashboard({ countryCode, languageCode, breakdown, answers, regionId }: Props) {
   const { t } = useLanguage();
   const country = countries[countryCode];
+  const localCountryName = t(`country_${countryCode}` as TranslationKey);
+  const history = getHistory();
   const comparisons = getComparisonBars(breakdown, countryCode);
   const [saved, setSaved] = useState(false);
 
@@ -104,7 +108,7 @@ export default function Dashboard({ countryCode, languageCode, breakdown, answer
             </div>
             <div>
               <div className="flex justify-between text-xs text-gray-500 mb-1">
-                <span>{t('dash_countryAverage', { country: country.name })}</span>
+                <span>{t('dash_countryAverage', { country: localCountryName })}</span>
                 <span>{Math.round(comparisons.countryAvgValue)} kg</span>
               </div>
               <div className="h-3 bg-gray-50 rounded-full overflow-hidden">
@@ -141,7 +145,7 @@ export default function Dashboard({ countryCode, languageCode, breakdown, answer
                 <div className={`h-full ${cat.color} rounded-full transition-all duration-700`} style={{ width: `${maxCat > 0 ? (cat.value / maxCat) * 100 : 0}%` }} />
               </div>
               <p className="text-[10px] text-gray-400 mt-2 italic leading-relaxed">
-                {getEmotionalEquivalent(countryCode, cat.key, cat.value, regionId)}
+                {getEmotionalEquivalent(countryCode, cat.key, cat.value, regionId, lang)}
               </p>
             </div>
           ))}
@@ -154,11 +158,10 @@ export default function Dashboard({ countryCode, languageCode, breakdown, answer
             onClick={handleSave}
             disabled={saved}
             aria-label="Save this month's result to history"
-            className={`w-full py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-300 ${
-              saved
+            className={`w-full py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-300 ${saved
                 ? 'bg-breathe-green/10 text-breathe-green border border-breathe-green/20'
                 : 'bg-white text-gray-600 border border-gray-200 hover:border-breathe-green/30 hover:text-breathe-green'
-            }`}
+              }`}
           >
             {saved ? <Check size={14} /> : <Save size={14} />}
             {saved ? t('dash_savedHistory') : t('dash_saveResult')}
@@ -173,16 +176,6 @@ export default function Dashboard({ countryCode, languageCode, breakdown, answer
             answers={answers}
             regionId={regionId}
           />
-        </div>
-
-        <div className="mt-8 flex justify-center border-t border-gray-100 pt-6">
-          <button
-            onClick={onStartOver}
-            aria-label="Start over"
-            className="text-gray-400 hover:text-breathe-green text-sm font-semibold transition-colors flex items-center gap-1.5"
-          >
-            <RotateCcw size={14} /> {t('app_startOver')}
-          </button>
         </div>
       </div>
     </div>
