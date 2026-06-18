@@ -37,11 +37,10 @@ export default function Quiz({ countryCode, onSubmit, onBack }: Props) {
               key={opt.id}
               onClick={() => setTransportId(opt.id)}
               aria-label={`Select ${t('transport_' + opt.id as TranslationKey)}`}
-              className={`w-full py-3 px-4 rounded-xl text-left text-sm font-medium transition-all duration-200 ${
-                transportId === opt.id
+              className={`w-full py-3 px-4 rounded-xl text-left text-sm font-medium transition-all duration-200 ${transportId === opt.id
                   ? 'bg-breathe-green text-white shadow-md shadow-breathe-green/20'
                   : 'bg-white text-gray-700 border border-gray-100 hover:border-breathe-green/30'
-              }`}
+                }`}
             >
               {t('transport_' + opt.id as TranslationKey)}
             </button>
@@ -76,11 +75,10 @@ export default function Quiz({ countryCode, onSubmit, onBack }: Props) {
               key={opt.id}
               onClick={() => setDietId(opt.id)}
               aria-label={`Select ${t('diet_' + opt.id as TranslationKey)}`}
-              className={`w-full py-3 px-4 rounded-xl text-left text-sm font-medium transition-all duration-200 ${
-                dietId === opt.id
+              className={`w-full py-3 px-4 rounded-xl text-left text-sm font-medium transition-all duration-200 ${dietId === opt.id
                   ? 'bg-breathe-green text-white shadow-md shadow-breathe-green/20'
                   : 'bg-white text-gray-700 border border-gray-100 hover:border-breathe-green/30'
-              }`}
+                }`}
             >
               {t('diet_' + opt.id as TranslationKey)}
             </button>
@@ -143,15 +141,13 @@ export default function Quiz({ countryCode, onSubmit, onBack }: Props) {
             <button
               key={opt.id}
               onClick={() => setRegionId(opt.id)}
-              aria-label={`Select ${opt.label}`}
-              className={`w-full py-3 px-4 rounded-xl text-left text-sm font-medium transition-all duration-200 ${
-                regionId === opt.id
+              aria-label={`Select ${t(`quiz_region_${opt.id}` as TranslationKey) || opt.label}`}
+              className={`w-full py-3 px-4 rounded-xl text-left text-sm font-medium transition-all duration-200 ${regionId === opt.id
                   ? 'bg-breathe-green text-white shadow-md shadow-breathe-green/20'
                   : 'bg-white text-gray-700 border border-gray-100 hover:border-breathe-green/30'
-              }`}
+                }`}
             >
-              {opt.label}
-            </button>
+              {t(`quiz_region_${opt.id}` as TranslationKey) || opt.label}            </button>
           ))}
         </div>
       ),
@@ -198,9 +194,8 @@ export default function Quiz({ countryCode, onSubmit, onBack }: Props) {
           {sections.map((_, i) => (
             <div
               key={i}
-              className={`h-1.5 flex-1 rounded-full transition-all duration-300 ${
-                i <= section ? 'bg-breathe-green' : 'bg-gray-100'
-              }`}
+              className={`h-1.5 flex-1 rounded-full transition-all duration-300 ${i <= section ? 'bg-breathe-green' : 'bg-gray-100'
+                }`}
             />
           ))}
         </div>
@@ -229,11 +224,10 @@ export default function Quiz({ countryCode, onSubmit, onBack }: Props) {
             }}
             disabled={!canProceed}
             aria-label={isLast ? 'See your footprint' : 'Next section'}
-            className={`flex-1 py-3 rounded-xl font-semibold text-sm transition-all duration-300 ${
-              canProceed
+            className={`flex-1 py-3 rounded-xl font-semibold text-sm transition-all duration-300 ${canProceed
                 ? 'bg-breathe-green text-white shadow-lg shadow-breathe-green/25 hover:shadow-xl'
                 : 'bg-gray-100 text-gray-300 cursor-not-allowed'
-            }`}
+              }`}
           >
             {isLast ? t('quiz_seeFootprint') : t('quiz_next')}
           </button>

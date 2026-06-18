@@ -10,6 +10,8 @@ export type TranslationKey =
   | 'quiz_shopping' | 'quiz_shoppingQ'
   | 'quiz_previous' | 'quiz_next' | 'quiz_seeFootprint'
   | 'quiz_regionLabel' | 'quiz_regionQ'
+  | 'quiz_region_metro' | 'quiz_region_midcity'
+  | 'quiz_region_smalltown' | 'quiz_region_rural'
   | 'dash_yourFootprint' | 'dash_kgThisMonth' | 'dash_howYouCompare' | 'dash_you'
   | 'dash_countryAverage' | 'dash_parisTarget'
   | 'dash_transport' | 'dash_food' | 'dash_energy' | 'dash_shopping'
@@ -44,7 +46,6 @@ export type TranslationKey =
   | 'diet_plant_heavy' | 'diet_mixed' | 'diet_meat_daily'
   | 'diet_vegan' | 'diet_flexitarian' | 'diet_omnivore'
   | 'diet_churrasco' | 'diet_sad'
-<<<<<<< HEAD
   | 'ecoScore'
   | 'climateImpact' | 'impactLow' | 'impactMedium' | 'impactHigh'
   | 'annualForecast' | 'annualForecastSub'
@@ -53,8 +54,7 @@ export type TranslationKey =
   | 'thisMonth'
   | 'chatPlaceholder' | 'chatTitle' | 'suggestedQ1' | 'suggestedQ2' | 'suggestedQ3' | 'suggestedQ4'
   | 'shareTitle' | 'shareCompare' | 'shareLine'
-  | 'transportHeading' | 'foodHeading' | 'energyHeading' | 'shoppingHeading';
-=======
+  | 'transportHeading' | 'foodHeading' | 'energyHeading' | 'shoppingHeading'
   // Country names
   | 'country_IN' | 'country_NG' | 'country_DE' | 'country_BR' | 'country_KE' | 'country_US'
   // Emotional equivalent templates
@@ -64,7 +64,6 @@ export type TranslationKey =
   | 'emo_BR_transport' | 'emo_BR_food' | 'emo_BR_energy' | 'emo_BR_shopping'
   | 'emo_KE_transport' | 'emo_KE_food' | 'emo_KE_energy' | 'emo_KE_shopping'
   | 'emo_US_transport' | 'emo_US_food' | 'emo_US_energy' | 'emo_US_shopping';
->>>>>>> afd754ef6a220db911342784a8cbbdc95fe019a0
 
 type Dict = Record<TranslationKey, string>;
 
@@ -143,6 +142,10 @@ const en: Dict = {
   quiz_seeFootprint: 'See your footprint',
   quiz_regionLabel: 'Where you live',
   quiz_regionQ: 'Which best describes where you live?',
+  quiz_region_metro: 'Metro city (Mumbai / Delhi / Bengaluru / Chennai)',
+  quiz_region_midcity: 'Mid-size city (Pune / Jaipur / Lucknow / Nagpur)',
+  quiz_region_smalltown: 'Small town',
+  quiz_region_rural: 'Rural village',
 
   dash_yourFootprint: 'Your footprint',
   dash_kgThisMonth: 'kg CO\u2082 this month',
@@ -338,6 +341,10 @@ const hi: Dict = {
   quiz_seeFootprint: 'मेरा फुटप्रिंट देखें',
   quiz_regionLabel: 'आप कहाँ रहते हैं',
   quiz_regionQ: 'आपके रहने की जगह को सबसे अच्छे से क्या बताता है?',
+  quiz_region_metro: 'महानगर (मुंबई / दिल्ली / बेंगलुरु / चेन्नई)',
+  quiz_region_midcity: 'मझोला शहर (पुणे / जयपुर / लखनऊ / नागपुर)',
+  quiz_region_smalltown: 'छोटा शहर',
+  quiz_region_rural: 'गाँव / ग्रामीण इलाका',
 
   dash_yourFootprint: 'आपका कार्बन निशान',
   dash_kgThisMonth: 'kg CO₂ इस महीने',
@@ -529,6 +536,11 @@ const mr: Dict = {
   quiz_seeFootprint: 'माझा फूटप्रिंट बघा',
   quiz_regionLabel: 'तुम्ही कुठे राहता',
   quiz_regionQ: 'तुमच्या राहण्याच्या ठिकाणाचे सर्वोत्तम वर्णन कोणते?',
+  quiz_region_metro: 'महानगर (मुंबई / दिल्ली / बेंगळुरू / चेन्नई)',
+  quiz_region_midcity: 'मध्यम शहर (पुणे / जयपूर / लखनऊ / नागपूर)',
+  quiz_region_smalltown: 'छोटे शहर',
+  quiz_region_rural: 'गाव / ग्रामीण भाग',
+
 
   dash_yourFootprint: 'तुमचा कार्बन ठसा',
   dash_kgThisMonth: 'kg CO₂ या महिन्यात',
@@ -720,6 +732,10 @@ const ta: Dict = {
   quiz_seeFootprint: 'என் கார்பன் அளவு காட்டு',
   quiz_regionLabel: 'நீங்கள் வசிக்கும் இடம்',
   quiz_regionQ: 'உங்கள் வாழும் இடத்தை சிறப்பாக விவரிப்பது எது?',
+  quiz_region_metro: 'பெருநகரம் (மும்பை / டெல்லி / பெங்களூரு / சென்னை)',
+  quiz_region_midcity: 'நடுத்தர நகரம் (புனே / ஜெய்ப்பூர் / லக்னோ / நாக்பூர்)',
+  quiz_region_smalltown: 'சிறு நகரம்',
+  quiz_region_rural: 'கிராமம் / கிராமப்புறம்',
 
   dash_yourFootprint: 'உங்கள் கார்பன் தடம்',
   dash_kgThisMonth: 'இந்த மாதம் kg CO₂',
@@ -911,6 +927,10 @@ const te: Dict = {
   quiz_seeFootprint: 'నా ఫుట్‌ప్రింట్ చూపించు',
   quiz_regionLabel: 'మీరు నివసించే ప్రాంతం',
   quiz_regionQ: 'మీరు నివసించే చోటుని బాగా వివరించేది ఏది?',
+  quiz_region_metro: 'మహానగరం (ముంబై / ఢిల్లీ / బెంగళూరు / చెన్నై)',
+  quiz_region_midcity: 'మధ్యస్థ నగరం (పుణే / జైపూర్ / లక్నో / నాగ్‌పూర్)',
+  quiz_region_smalltown: 'చిన్న పట్టణం',
+  quiz_region_rural: 'గ్రామం / గ్రామీణ ప్రాంతం',
 
   dash_yourFootprint: 'మీ కార్బన్ ముద్ర',
   dash_kgThisMonth: 'ఈ నెల kg CO₂',
@@ -1102,6 +1122,10 @@ const yo: Dict = {
   quiz_seeFootprint: 'Ṣe iṣiro mi',
   quiz_regionLabel: 'Ibiti o ngbé',
   quiz_regionQ: 'Kini o ṣapejuwe ibiti o ngbé dara julọ?',
+  quiz_region_metro: 'Ìlú ńlá (Lagos / Abuja / Ibadan)',
+  quiz_region_midcity: 'Ìlú àárín',
+  quiz_region_smalltown: 'Ìlú kékeré',
+  quiz_region_rural: 'Àgbègbè igbó / Abúlé',
 
   dash_yourFootprint: 'Ìtọpasẹ carbon rẹ',
   dash_kgThisMonth: 'kg CO₂ oṣù yii',
@@ -1289,7 +1313,10 @@ const ha: Dict = {
   quiz_seeFootprint: 'Nuna sawun carbon na',
   quiz_regionLabel: 'Inda kuke zaune',
   quiz_regionQ: 'Menene ya fi bayyana inda kuke zaune?',
-
+  quiz_region_metro: 'Babban birnin (Lagos / Abuja / Kano)',
+  quiz_region_midcity: 'Matsakaicin gari',
+  quiz_region_smalltown: 'Ƙaramin gari',
+  quiz_region_rural: 'Kauye / Yankin karkara',
   dash_yourFootprint: 'Sawun carbon ɗinku',
   dash_kgThisMonth: 'kg CO₂ wannan watan',
   dash_howYouCompare: 'Yadda kuke kwatantawa',
@@ -1475,6 +1502,10 @@ const ig: Dict = {
   quiz_seeFootprint: 'Gosi m ihe m nwere',
   quiz_regionLabel: 'Ebe ị bi',
   quiz_regionQ: 'Gịnị kọwapụtara nke ọma ebe ị bi?',
+  quiz_region_metro: 'Nnukwu obodo (Lagos / Abuja / Onitsha)',
+  quiz_region_midcity: 'Obodo ndị etiti',
+  quiz_region_smalltown: 'Obodo obere',
+  quiz_region_rural: 'Ụlọ / Ime obodo',
 
   dash_yourFootprint: 'Ntọala carbon gị',
   dash_kgThisMonth: 'kg CO₂ ọnwa a',
@@ -1661,6 +1692,9 @@ const de: Dict = {
   quiz_seeFootprint: 'Meinen Fußabdruck berechnen',
   quiz_regionLabel: 'Wo du wohnst',
   quiz_regionQ: 'Was beschreibt deinen Wohnort am besten?',
+  quiz_region_city: 'Großstadt (Berlin / München / Hamburg)',
+  quiz_region_othercity: 'Andere Stadt oder Kleinstadt',
+  quiz_region_rural: 'Ländlich / Vorort',
 
   dash_yourFootprint: 'Dein CO₂-Fußabdruck',
   dash_kgThisMonth: 'kg CO₂ diesen Monat',
@@ -1847,6 +1881,10 @@ const pt: Dict = {
   quiz_seeFootprint: 'Ver meu impacto',
   quiz_regionLabel: 'Onde você mora',
   quiz_regionQ: 'Qual melhor descreve onde você mora?',
+  quiz_region_metro: 'Grande cidade (São Paulo / Rio / Brasília)',
+  quiz_region_midcity: 'Cidade média',
+  quiz_region_smalltown: 'Cidade pequena',
+  quiz_region_rural: 'Zona rural / Interior',
 
   dash_yourFootprint: 'Sua pegada de carbono',
   dash_kgThisMonth: 'kg CO₂ este mês',
@@ -2033,7 +2071,10 @@ const es: Dict = {
   quiz_seeFootprint: 'Ver mi huella',
   quiz_regionLabel: 'Dónde vives',
   quiz_regionQ: '¿Cuál describe mejor dónde vives?',
-
+  quiz_region_metro: 'Ciudad grande (Ciudad de México / Buenos Aires / Bogotá)',
+  quiz_region_midcity: 'Ciudad mediana',
+  quiz_region_smalltown: 'Pueblo pequeño',
+  quiz_region_rural: 'Zona rural / Campo',
   dash_yourFootprint: 'Tu huella de carbono',
   dash_kgThisMonth: 'kg CO₂ este mes',
   dash_howYouCompare: 'Cómo te comparas',
@@ -2219,6 +2260,10 @@ const sw: Dict = {
   quiz_seeFootprint: 'Onyesha alama yangu',
   quiz_regionLabel: 'Unapoishi',
   quiz_regionQ: 'Ni ipi inayoelezea vizuri zaidi mahali unapoishi?',
+  quiz_region_metro: 'Mji mkubwa (Nairobi / Mombasa)',
+  quiz_region_midcity: 'Mji wa kati',
+  quiz_region_smalltown: 'Mji mdogo',
+  quiz_region_rural: 'Kijiji / Vijijini',
 
   dash_yourFootprint: 'Alama yako ya kaboni',
   dash_kgThisMonth: 'kg CO₂ mwezi huu',

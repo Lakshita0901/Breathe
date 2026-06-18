@@ -2,7 +2,7 @@ export type CountryCode = 'IN' | 'NG' | 'DE' | 'BR' | 'KE' | 'US';
 
 export interface RegionOption {
   id: string;
-  label: string;
+  label?: string;
 }
 
 export interface Country {
@@ -72,10 +72,10 @@ const countries: Record<CountryCode, Country> = {
     currency: '\u20B9',
     electricityHint: 'Typical: 100-400 kWh/month',
     regionOptions: [
-      { id: 'metro', label: 'Metro city (Mumbai / Delhi / Bengaluru / Chennai)' },
-      { id: 'midcity', label: 'Mid-size city (Pune / Jaipur / Lucknow / Nagpur)' },
-      { id: 'smalltown', label: 'Small town' },
-      { id: 'rural', label: 'Rural village' },
+      { id: 'metro' },
+      { id: 'midcity' },
+      { id: 'smalltown' },
+      { id: 'rural' },
     ],
     emotionalEquivalents: (regionId) => {
       if (regionId === 'metro') return {

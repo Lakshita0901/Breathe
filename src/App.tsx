@@ -6,11 +6,9 @@ import CountrySelector from './components/CountrySelector';
 import LanguageSelector from './components/LanguageSelector';
 import Quiz from './components/Quiz';
 import Dashboard from './components/Dashboard';
-<<<<<<< HEAD
+
 import { LanguageProvider } from './contexts/LanguageContext';
-=======
-import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
->>>>>>> afd754ef6a220db911342784a8cbbdc95fe019a0
+
 
 const STORAGE_KEY = 'breathe_state';
 
@@ -92,10 +90,10 @@ function AppContent({ state, setState }: AppContentProps) {
           breakdown={state.breakdown}
           answers={state.answers}
           regionId={state.answers?.regionId}
-<<<<<<< HEAD
-=======
+
+
           onRetake={() => setState((s) => ({ ...s, screen: 2 }))}
->>>>>>> afd754ef6a220db911342784a8cbbdc95fe019a0
+
           onStartOver={handleStartOver}
         />
       )}

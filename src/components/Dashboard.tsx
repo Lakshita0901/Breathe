@@ -18,10 +18,12 @@ interface Props {
   breakdown: FootprintBreakdown;
   answers: QuizAnswers;
   regionId?: string;
+   onRetake: () => void;
+  onStartOver: () => void;
 }
 
-export default function Dashboard({ countryCode, languageCode, breakdown, answers, regionId }: Props) {
-  const { t } = useLanguage();
+export default function Dashboard({ countryCode, languageCode, breakdown, answers, regionId,onRetake,onStartOver }: Props) {
+  const { t, lang } = useLanguage();
   const country = countries[countryCode];
   const localCountryName = t(`country_${countryCode}` as TranslationKey);
   const history = getHistory();
