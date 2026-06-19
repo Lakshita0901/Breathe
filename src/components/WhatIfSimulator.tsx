@@ -24,7 +24,7 @@ function getStoredAnswers(): QuizAnswers | null {
 export default function WhatIfSimulator({ countryCode, currentTotal }: Props) {
   const { t, lang } = useLanguage();
   const country = countries[countryCode];
-  const answers = getStoredAnswers();
+  const [answers] = useState<QuizAnswers | null>(() => getStoredAnswers());
   const [newTransport, setNewTransport] = useState<string>('');
   const [newDiet, setNewDiet] = useState<string>('');
   const [energyReduction, setEnergyReduction] = useState<number>(0);
@@ -41,7 +41,7 @@ export default function WhatIfSimulator({ countryCode, currentTotal }: Props) {
       lang
     );
     setResult(sim);
-  }, [newTransport, newDiet, energyReduction, countryCode, answers]);
+  }, [newTransport, newDiet, energyReduction, countryCode, lang]);
 
   const hasChange = newTransport || newDiet || energyReduction > 0;
 

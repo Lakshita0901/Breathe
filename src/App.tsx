@@ -111,27 +111,7 @@ function App() {
     breakdown: null,
   });
 
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved) as AppState;
-        
-        // Migrate old screen indices to new screen indices:
-        if (parsed.countryCode) {
-          if (parsed.screen === 1) parsed.screen = 2;
-          else if (parsed.screen === 2) parsed.screen = 3;
-          else if (parsed.screen === 3) parsed.screen = 4;
-        } else {
-          parsed.screen = 0;
-        }
-
-        if (parsed.screen > 1 && parsed.countryCode) {
-          setState(parsed);
-        }
-      }
-    } catch { /* ignore */ }
-  }, []);
+  // Always start from the landing page on refresh — no state restoration
 
   useEffect(() => {
     if (state.screen > 2) {

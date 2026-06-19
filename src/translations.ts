@@ -1692,9 +1692,11 @@ const de: Dict = {
   quiz_seeFootprint: 'Meinen Fußabdruck berechnen',
   quiz_regionLabel: 'Wo du wohnst',
   quiz_regionQ: 'Was beschreibt deinen Wohnort am besten?',
-  quiz_region_city: 'Großstadt (Berlin / München / Hamburg)',
-  quiz_region_othercity: 'Andere Stadt oder Kleinstadt',
-  quiz_region_rural: 'Ländlich / Vorort',
+  quiz_region_metro: 'Großstadt (Berlin / München / Hamburg)',
+  quiz_region_midcity: 'Mittelstadt',
+  quiz_region_smalltown: 'Kleinstadt',
+  quiz_region_rural: 'Ländlich / Dorf',
+
 
   dash_yourFootprint: 'Dein CO₂-Fußabdruck',
   dash_kgThisMonth: 'kg CO₂ diesen Monat',
