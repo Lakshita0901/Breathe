@@ -145,37 +145,47 @@ AI accelerated implementation, while the overall product vision, awareness-focus
 A key objective was transforming carbon data into relatable everyday experiences rather than presenting raw numbers.
 
 ---
+## Prompt Engineering Evidence
 
-## Prompt Engineering Process
+### Initial Product Vision
 
-The project evolved through multiple prompt iterations.
+![Initial Product Vision](screenshots/product_vision.png)
 
-### Prompt 1
-
-Create a carbon footprint calculator that estimates monthly emissions based on transportation, food, energy usage, and shopping habits.
-
-**Outcome:** Basic carbon calculation system.
-
-### Prompt 2
-
-Transform the calculator into a carbon footprint awareness platform that explains emissions through relatable real-world comparisons and actionable recommendations.
-
-**Outcome:** Added contextual comparisons and awareness-focused experience.
-
-### Prompt 3
-
-Create a multilingual sustainability platform with country-based comparisons, AI-generated recommendations, and an interactive What If simulator.
-
-**Outcome:** Expanded platform capabilities and user engagement.
-
-### Prompt 4
-
-Generate conversational sustainability insights that explain a user's footprint, identify major emission sources, and recommend practical lifestyle changes.
-
-**Outcome:** AI-powered chatbot guidance and personalized recommendations.
+The project started with a master prompt defining the product vision, awareness-first approach, UI philosophy, and user journey.
 
 ---
 
+### Accessibility & Localization
+
+![Localization](screenshots/localisation.png)
+
+Designed for 6 countries and 12 languages to make sustainability insights more accessible and culturally relevant.
+
+---
+
+### Carbon Calculation Framework
+
+![Carbon Framework](screenshots/carbon_framework.png)
+
+Country-specific transport, energy, food, and shopping emission factors were defined to generate realistic monthly carbon estimates.
+
+---
+
+### Emotional Translation & What-If Simulator
+
+![Emotional Translation](screenshots/emotional_translator.png)
+
+A core design goal was transforming carbon data into relatable real-world equivalents rather than displaying raw numbers alone.
+
+---
+
+### UI Refinement Iterations
+
+![UI Refinement](screenshots/refinement.png)
+
+The interface was iteratively improved through prompt-driven refinement, focusing on clarity, visual hierarchy, and usability.
+
+---
 ## Architecture
 
 ```text
