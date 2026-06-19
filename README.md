@@ -13,7 +13,7 @@ Built for **Prompt Wars Virtual Challenge #3**.
 
 ## Live Demo
 
-[Add deployed Vercel link here]
+https://breathe-weld.vercel.app/
 
 ---
 
