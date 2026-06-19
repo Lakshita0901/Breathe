@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Truck, Carrot, Zap, ShoppingBag, Leaf, Save, Check, RotateCcw } from 'lucide-react';
+import { Truck, Carrot, Zap, ShoppingBag, Leaf, Save, Check, RotateCcw, TrendingUp } from 'lucide-react';
 import { CountryCode } from '../data/countries';
 import countries from '../data/countries';
 import { FootprintBreakdown, QuizAnswers, getComparisonBars, getEmotionalEquivalent } from '../utils/calculator';
@@ -29,6 +29,13 @@ export default function Dashboard({ countryCode, languageCode, breakdown, answer
   const history = getHistory();
   const comparisons = getComparisonBars(breakdown, countryCode);
   const [saved, setSaved] = useState(false);
+
+  const categoryAverages = {
+    transport: country.avgFootprint * 0.30,
+    food: country.avgFootprint * 0.25,
+    energy: country.avgFootprint * 0.30,
+    shopping: country.avgFootprint * 0.15,
+  };
 
   const moodKey = `mood_${breakdown.mood}` as TranslationKey;
   const translatedMoodText = t(moodKey);
@@ -89,14 +96,14 @@ export default function Dashboard({ countryCode, languageCode, breakdown, answer
             <p className="text-breathe-green font-semibold text-base mt-1">{t('dash_kgThisMonth')}</p>
           </div>
 
-          <div className="mt-5 inline-flex items-center gap-2 bg-white px-5 py-2.5 rounded-2xl shadow-sm border border-gray-100">
+          <div className="mt-5 inline-flex items-center gap-2 bg-white px-5 py-2.5 rounded-[20px] shadow-sm border border-gray-100">
             <span className="text-xl">{breakdown.moodEmoji}</span>
             <span className="font-semibold text-gray-700 text-sm">{translatedMoodText}</span>
           </div>
         </div>
 
         {/* Comparison bars */}
-        <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 mb-6">
+        <div className="bg-white rounded-[20px] p-5 shadow-sm border border-gray-100 mb-6">
           <h3 className="text-sm font-semibold text-gray-700 mb-4">{t('dash_howYouCompare')}</h3>
           <div className="space-y-3">
             <div>
@@ -131,26 +138,40 @@ export default function Dashboard({ countryCode, languageCode, breakdown, answer
 
         {/* Category cards */}
         <div className="grid grid-cols-2 gap-4 mb-6">
-          {categories.map((cat, i) => (
-            <div
-              key={cat.key}
-              className={`slide-up stagger-${i + 1} bg-white rounded-2xl p-5 shadow-sm border border-gray-100 border-t-2 border-t-breathe-green/40`}
-            >
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-gray-400">{cat.icon}</span>
-                <span className="text-xs font-medium text-gray-500">{cat.label}</span>
+          {categories.map((cat, i) => {
+            const borderAccents = {
+              transport: 'border-l-4 border-l-breathe-blue',
+              food: 'border-l-4 border-l-orange-500',
+              energy: 'border-l-4 border-l-yellow-400',
+              shopping: 'border-l-4 border-l-purple-500',
+            };
+            const isAboveAvg = cat.value > categoryAverages[cat.key];
+
+            return (
+              <div
+                key={cat.key}
+                className={`slide-up stagger-${i + 1} bg-white rounded-[20px] p-5 shadow-sm border border-gray-100 ${borderAccents[cat.key]}`}
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-gray-400">{cat.icon}</span>
+                  <span className="text-xs font-medium text-gray-500">{cat.label}</span>
+                </div>
+                <div className="text-2xl font-bold text-gray-800 flex items-center gap-1">
+                  <span>{Math.round(cat.value)}</span>
+                  <span className="text-xs font-normal text-gray-400">kg</span>
+                  {isAboveAvg && (
+                    <TrendingUp size={14} className="text-red-500 ml-1 inline-block" title="Above country average" />
+                  )}
+                </div>
+                <div className="h-1.5 bg-gray-50 rounded-full mt-3 overflow-hidden">
+                  <div className={`h-full ${cat.color} rounded-full transition-all duration-700`} style={{ width: `${maxCat > 0 ? (cat.value / maxCat) * 100 : 0}%` }} />
+                </div>
+                <p className="text-[10px] text-breathe-green mt-2 italic leading-relaxed">
+                  {getEmotionalEquivalent(countryCode, cat.key, cat.value, regionId, lang)}
+                </p>
               </div>
-              <p className="text-2xl font-bold text-gray-800">
-                {Math.round(cat.value)} <span className="text-xs font-normal text-gray-400">kg</span>
-              </p>
-              <div className="h-1.5 bg-gray-50 rounded-full mt-3 overflow-hidden">
-                <div className={`h-full ${cat.color} rounded-full transition-all duration-700`} style={{ width: `${maxCat > 0 ? (cat.value / maxCat) * 100 : 0}%` }} />
-              </div>
-              <p className="text-[10px] text-gray-400 mt-2 italic leading-relaxed">
-                {getEmotionalEquivalent(countryCode, cat.key, cat.value, regionId, lang)}
-              </p>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         <WhatIfSimulator countryCode={countryCode} currentTotal={breakdown.total} />

@@ -55,11 +55,11 @@ ${t('share_tagline')}
   };
 
   return (
-    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+    <div className="bg-white rounded-[20px] p-5 shadow-sm border border-gray-100">
       <h3 className="text-sm font-semibold text-gray-700 mb-4">{t('share_title')}</h3>
 
       {/* Card preview */}
-      <div className="bg-gradient-to-br from-breathe-green/5 to-breathe-blue/5 rounded-2xl p-6 border border-breathe-green/10 mb-4">
+      <div className="bg-gradient-to-br from-breathe-green/5 to-breathe-blue/5 rounded-[20px] p-6 border border-breathe-green/10 mb-4">
         <div className="flex items-center gap-2 mb-3">
           <Leaf size={18} className="text-breathe-green" />
           <span className="font-bold text-breathe-green text-base">{t('cs_appName')}</span>

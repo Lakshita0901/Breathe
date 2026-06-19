@@ -228,7 +228,7 @@ STRICT SAFETY RULES — follow without exception:
   const showChips = messages.length <= 1 && !loading;
 
   return (
-    <div className="bg-breathe-green/[0.03] rounded-2xl shadow-sm border border-breathe-green/15 overflow-hidden">
+    <div className="bg-breathe-green/[0.03] rounded-[20px] shadow-sm border border-breathe-green/15 overflow-hidden">
       {/* Header */}
       <div className="flex items-center gap-2.5 p-4 pb-2">
         <div className="w-8 h-8 rounded-full bg-breathe-green/10 flex items-center justify-center">

@@ -46,8 +46,12 @@ export default function LandingHero({ onStart }: Props) {
       }`}
       style={{ background: 'linear-gradient(to bottom, #f0faf6 0%, #ffffff 100%)' }}
     >
-      {/* Background Floating Leaves (Minimal, 3 leaves) */}
+      {/* Background Floating Leaves (Minimal, 3 leaves) & Watermark */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
+        {/* Floating Leaf Watermark */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0 overflow-hidden">
+          <Leaf className="w-[300px] h-[300px] sm:w-[450px] sm:h-[450px] text-[#1D9E75] opacity-[0.05] rotate-[25deg] transform animate-watermark-float" />
+        </div>
         <div className="absolute bottom-0 left-[15%] animate-float-leaf-1">
           <Leaf className="text-[#1D9E75]/15 fill-[#1D9E75]/5 w-6 h-6 rotate-12" />
         </div>
@@ -64,6 +68,14 @@ export default function LandingHero({ onStart }: Props) {
 
       {/* Center Content */}
       <div className="max-w-xl w-full text-center z-10 flex flex-col items-center">
+        {/* Animated Green Leaf Logo */}
+        <div className="mb-6 flex justify-center">
+          <svg className="w-16 h-16 text-[#1D9E75] fill-[#1D9E75]/10 animate-breathe-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M2 22C2 22 8 22 12 18C16 14 18 10 18 6C18 6 18 2 14 2C10 2 6 4 2 8C-2 12 2 18 2 22Z" />
+            <path d="M2 22C6 18 10 14 14 10" />
+          </svg>
+        </div>
+
         <h1 className="text-[48px] sm:text-[56px] leading-[1.15] font-bold text-gray-900 tracking-tight">
           Every breath you take
           <span className="block mt-1">tells a story.</span>
@@ -83,20 +95,33 @@ export default function LandingHero({ onStart }: Props) {
         </button>
 
         {/* Rotating Fact Line */}
-        <div className="h-12 mt-8 flex items-center justify-center">
-          <p className={`text-sm text-gray-600 font-medium tracking-wide transition-all duration-300 ${factFade}`}>
-            {facts[factIndex]}
-          </p>
+        <div className="h-14 mt-8 flex items-center justify-center">
+          <div className={`px-6 py-2.5 bg-[#1D9E75]/10 border border-[#1D9E75]/15 rounded-full shadow-sm max-w-md transition-all duration-300 ${factFade}`}>
+            <p className="text-[14px] text-gray-700 font-semibold tracking-wide">
+              {facts[factIndex]}
+            </p>
+          </div>
         </div>
       </div>
 
       <div className="flex-1" />
 
       {/* Footer Text */}
-      <div className="z-10 text-center">
-        <p className="text-xs text-gray-400 font-medium tracking-wide">
-          Available in 12 languages &middot; 6 countries &middot; Takes 2 minutes
+      <div className="z-10 text-center flex flex-col items-center gap-3">
+        <p className="text-xs text-gray-400 font-medium tracking-wide uppercase">
+          Available in 12 languages
         </p>
+        <div className="flex gap-2.5 justify-center flex-wrap">
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold text-gray-500 border border-gray-200 bg-gray-50/50 shadow-sm">
+            🌍 6 Countries
+          </span>
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold text-gray-500 border border-gray-200 bg-gray-50/50 shadow-sm">
+            🗣 12 Languages
+          </span>
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold text-gray-500 border border-gray-200 bg-gray-50/50 shadow-sm">
+            ⚡ 2 Minutes
+          </span>
+        </div>
       </div>
     </div>
   );

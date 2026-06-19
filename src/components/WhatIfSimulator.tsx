@@ -46,7 +46,7 @@ export default function WhatIfSimulator({ countryCode, currentTotal }: Props) {
   const hasChange = newTransport || newDiet || energyReduction > 0;
 
   return (
-    <div className="bg-breathe-green/[0.03] rounded-2xl p-6 shadow-sm border border-breathe-green/15">
+    <div className="bg-breathe-green/[0.03] rounded-[20px] p-6 shadow-sm border border-breathe-green/15">
       <div className="flex items-center gap-2.5 mb-1">
         <div className="w-8 h-8 rounded-full bg-breathe-green/10 flex items-center justify-center">
           <Sparkles size={16} className="text-breathe-green" />

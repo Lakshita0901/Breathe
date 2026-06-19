@@ -23,7 +23,7 @@ export default function HistoryChart({ entries }: Props) {
   };
 
   return (
-    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+    <div className="bg-white rounded-[20px] p-5 shadow-sm border border-gray-100">
       <h3 className="text-sm font-semibold text-gray-700 mb-4">{t('hist_title')}</h3>
 
       <div className="flex items-end gap-3 h-36 mb-2">

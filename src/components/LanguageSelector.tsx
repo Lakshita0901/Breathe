@@ -26,25 +26,28 @@ export default function LanguageSelector({ countryCode, onSelect, onBack }: Prop
           <ArrowLeft size={14} /> {t('ls_back')}
         </button>
         <p className="text-4xl mb-3">{country.flag}</p>
-        <h1 className="text-2xl sm:text-3xl font-semibold text-gray-800 mb-2">
-          {t('ls_chooseLanguage')}
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">
+          Your story, your language
         </h1>
         <p className="text-gray-400 text-sm mb-8">
           {t('ls_insightsPersonal')}
         </p>
-        <div className="space-y-3 mb-8">
+        <div className="space-y-3.5 mb-8">
           {country.languages.map((lang) => (
             <button
               key={lang.code}
               onClick={() => setSelected(lang.code)}
               aria-label={`Select ${lang.name}`}
-              className={`w-full py-3 px-5 rounded-xl text-left text-base font-medium transition-all duration-200 ${
+              className={`w-full py-4 px-6 rounded-full text-left text-lg font-semibold transition-all duration-300 transform active:scale-98 flex items-center justify-between hover:scale-[1.02] ${
                 selected === lang.code
-                  ? 'bg-breathe-green text-white shadow-md shadow-breathe-green/20'
-                  : 'bg-white text-gray-700 border border-gray-100 hover:border-breathe-green/30'
+                  ? 'bg-emerald-50/80 border-2 border-breathe-green text-emerald-950 shadow-sm'
+                  : 'bg-white text-gray-700 border border-gray-200 hover:border-breathe-green/30'
               }`}
             >
-              {lang.name}
+              <span>{lang.name}</span>
+              {selected === lang.code && (
+                <span className="text-breathe-green font-bold text-xl select-none animate-pop-in">✓</span>
+              )}
             </button>
           ))}
         </div>
