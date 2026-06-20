@@ -59,41 +59,45 @@ function AppContent({ state, setState }: AppContentProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      {state.screen === 0 && (
-        <LandingHero onStart={() => setState((s) => ({ ...s, screen: 1 }))} />
-      )}
+      <a href="#main-content" className="sr-only focus:not-sr-only">
+        Skip to main content
+      </a>
+      <main id="main-content" role="main">
+        {state.screen === 0 && (
+          <LandingHero onStart={() => setState((s) => ({ ...s, screen: 1 }))} />
+        )}
 
-      {state.screen === 1 && (
-        <CountrySelector onSelect={handleCountrySelect} onViewHistory={handleViewHistory} />
-      )}
+        {state.screen === 1 && (
+          <CountrySelector onSelect={handleCountrySelect} onViewHistory={handleViewHistory} />
+        )}
 
-      {state.screen === 2 && state.countryCode && (
-        <LanguageSelector
-          countryCode={state.countryCode}
-          onSelect={handleLanguageSelect}
-          onBack={() => setState((s) => ({ ...s, screen: 1 }))}
-        />
-      )}
+        {state.screen === 2 && state.countryCode && (
+          <LanguageSelector
+            countryCode={state.countryCode}
+            onSelect={handleLanguageSelect}
+            onBack={() => setState((s) => ({ ...s, screen: 1 }))}
+          />
+        )}
 
-      {state.screen === 3 && state.countryCode && (
-        <Quiz
-          countryCode={state.countryCode}
-          onSubmit={handleQuizSubmit}
-          onBack={() => setState((s) => ({ ...s, screen: 2 }))}
-        />
-      )}
+        {state.screen === 3 && state.countryCode && (
+          <Quiz
+            countryCode={state.countryCode}
+            onSubmit={handleQuizSubmit}
+            onBack={() => setState((s) => ({ ...s, screen: 2 }))}
+          />
+        )}
 
-      {state.screen === 4 && state.countryCode && state.languageCode && state.breakdown && state.answers && (
-        <Dashboard
-          countryCode={state.countryCode}
-          languageCode={state.languageCode}
-          breakdown={state.breakdown}
-          answers={state.answers}
-          regionId={state.answers?.regionId}
-          onStartOver={handleStartOver}
-        />
-      )}
-
+        {state.screen === 4 && state.countryCode && state.languageCode && state.breakdown && state.answers && (
+          <Dashboard
+            countryCode={state.countryCode}
+            languageCode={state.languageCode}
+            breakdown={state.breakdown}
+            answers={state.answers}
+            regionId={state.answers?.regionId}
+            onStartOver={handleStartOver}
+          />
+        )}
+      </main>
     </div>
   );
 }

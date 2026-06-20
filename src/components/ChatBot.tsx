@@ -53,6 +53,7 @@ export default function ChatBot({ countryCode, languageCode, breakdown, answers,
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [usingSample, setUsingSample] = useState(false);
+  const [lastMessageTime, setLastMessageTime] = useState(0);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -146,16 +147,30 @@ STRICT SAFETY RULES — follow without exception:
   }
 
   async function sendMessage(userContent: string) {
+    if (Date.now() - lastMessageTime < 2000) return; // 2 sec limit
+    setLastMessageTime(Date.now());
+
     if (!userContent.trim() || loading) return;
 
-    const userMsg: Message = { role: 'user', content: userContent.trim() };
+    const sanitizedInput = userContent
+      .trim()
+      .slice(0, 500) // max 500 chars
+      .replace(/<[^>]*>/g, ''); // strip HTML tags
+
+    if (!sanitizedInput) return;
+
+    const userMsg: Message = { role: 'user', content: sanitizedInput };
     const updatedMessages = [...messages, userMsg];
     setMessages(updatedMessages);
     setInput('');
     setLoading(true);
 
     const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-    if (!apiKey || apiKey === 'your_key_here') {
+    if (!apiKey || apiKey.length < 10) {
+      console.warn('Invalid or missing API key');
+    }
+
+    if (!apiKey || apiKey === 'your_key_here' || apiKey.length < 10) {
       setTimeout(() => {
         setMessages([...updatedMessages, { role: 'assistant', content: localOpening() }]);
         setLoading(false);
@@ -193,7 +208,11 @@ STRICT SAFETY RULES — follow without exception:
 
     const opening = localOpening();
     const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-    const noKey = !apiKey || apiKey === 'your_key_here';
+    if (!apiKey || apiKey.length < 10) {
+      console.warn('Invalid or missing API key');
+    }
+
+    const noKey = !apiKey || apiKey === 'your_key_here' || apiKey.length < 10;
 
     if (noKey) {
       setMessages([{ role: 'assistant', content: opening }]);
@@ -241,7 +260,7 @@ STRICT SAFETY RULES — follow without exception:
       </div>
 
       {/* Messages */}
-      <div className="px-4 pb-3 max-h-80 overflow-y-auto space-y-3">
+      <div aria-live="polite" className="px-4 pb-3 max-h-80 overflow-y-auto space-y-3">
         {messages.map((msg, i) => (
           <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div

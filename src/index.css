@@ -201,3 +201,8 @@
 .animate-pop-in {
   animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
+
+*:focus-visible {
+  outline: 2px solid #1D9E75;
+  outline-offset: 2px;
+}
