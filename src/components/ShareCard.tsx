@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Copy, Check, Leaf } from 'lucide-react';
 import { CountryCode } from '../data/countries';
-import countries from '../data/countries';
 import { FootprintBreakdown, getEmotionalEquivalent } from '../utils/calculator';
 import { useLanguage } from '../contexts/LanguageContext';
 import { TranslationKey } from '../translations';
@@ -10,10 +9,9 @@ interface Props {
   countryCode: CountryCode;
   breakdown: FootprintBreakdown;
   regionId?: string;
-  languageCode: string;
 }
 
-export default function ShareCard({ countryCode, breakdown, regionId, languageCode }: Props) {
+export default function ShareCard({ countryCode, breakdown, regionId }: Props) {
   const { t, lang } = useLanguage();
   const localCountryName = t(`country_${countryCode}` as TranslationKey);
   const [copied, setCopied] = useState(false);

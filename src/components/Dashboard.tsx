@@ -6,9 +6,6 @@ import { FootprintBreakdown, QuizAnswers, getComparisonBars, getEmotionalEquival
 import { saveToHistory } from '../utils/history';
 import WhatIfSimulator from './WhatIfSimulator';
 import ChatBot from './ChatBot';
-import ShareCard from './ShareCard';
-import HistoryChart from './HistoryChart';
-import { getHistory } from '../utils/history';
 import { useLanguage } from '../contexts/LanguageContext';
 import { TranslationKey } from '../translations';
 
@@ -18,15 +15,13 @@ interface Props {
   breakdown: FootprintBreakdown;
   answers: QuizAnswers;
   regionId?: string;
-   onRetake: () => void;
   onStartOver: () => void;
 }
 
-export default function Dashboard({ countryCode, languageCode, breakdown, answers, regionId,onRetake,onStartOver }: Props) {
+export default function Dashboard({ countryCode, languageCode, breakdown, answers, regionId, onStartOver }: Props) {
   const { t, lang } = useLanguage();
   const country = countries[countryCode];
   const localCountryName = t(`country_${countryCode}` as TranslationKey);
-  const history = getHistory();
   const comparisons = getComparisonBars(breakdown, countryCode);
   const [saved, setSaved] = useState(false);
 
@@ -160,7 +155,9 @@ export default function Dashboard({ countryCode, languageCode, breakdown, answer
                   <span>{Math.round(cat.value)}</span>
                   <span className="text-xs font-normal text-gray-400">kg</span>
                   {isAboveAvg && (
-                    <TrendingUp size={14} className="text-red-500 ml-1 inline-block" title="Above country average" />
+                    <span title="Above country average">
+                      <TrendingUp size={14} className="text-red-500 ml-1 inline-block" />
+                    </span>
                   )}
                 </div>
                 <div className="h-1.5 bg-gray-50 rounded-full mt-3 overflow-hidden">

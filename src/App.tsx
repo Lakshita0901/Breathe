@@ -90,10 +90,6 @@ function AppContent({ state, setState }: AppContentProps) {
           breakdown={state.breakdown}
           answers={state.answers}
           regionId={state.answers?.regionId}
-
-
-          onRetake={() => setState((s) => ({ ...s, screen: 2 }))}
-
           onStartOver={handleStartOver}
         />
       )}
