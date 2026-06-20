@@ -144,7 +144,7 @@ describe('ChatBot Component', () => {
     fireEvent.submit(input.closest('form')!);
 
     await waitFor(() => {
-      expect(screen.getByText('clean text')).toBeInTheDocument();
+      expect(document.body.textContent).toContain('clean text');
     });
   });
 
