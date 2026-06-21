@@ -31,14 +31,17 @@ function renderChatBot() {
   return render(
     React.createElement(
       LanguageProvider,
-      { lang: 'en' },
-      React.createElement(ChatBot, {
-        countryCode: 'IN',
-        languageCode: 'en',
-        breakdown: mockBreakdown,
-        answers: mockAnswers,
-      })
+      {
+        lang: 'en',
+        children: React.createElement(ChatBot, {
+          countryCode: 'IN',
+          languageCode: 'en',
+          breakdown: mockBreakdown,
+          answers: mockAnswers,
+        }),
+      }
     )
+
   );
 }
 
@@ -132,15 +135,15 @@ describe('Security Edge Cases and Sanitization Tests', () => {
   });
 
   test('Short/invalid API key falls back to sample mode and prints warning', async () => {
-    const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
-    
+    const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => { });
+
     // Set API key that is too short (length < 10)
     vi.stubEnv('VITE_GEMINI_API_KEY', 'short');
     renderChatBot();
 
     expect(screen.getByText('sample')).toBeInTheDocument();
     expect(consoleWarnSpy).toHaveBeenCalledWith(expect.stringContaining('Invalid or missing API key'));
-    
+
     consoleWarnSpy.mockRestore();
   });
 });

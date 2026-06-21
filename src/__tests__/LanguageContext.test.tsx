@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import { describe, test, expect } from 'vitest';
 import { LanguageProvider, useLanguage } from '../contexts/LanguageContext';
@@ -18,16 +18,20 @@ describe('LanguageContext Unit Tests', () => {
 
   test('default language value and t() behavior when used without a provider', () => {
     render(<TestComponent translationKey="app_startOver" />);
-    
+
     // Default lang should be 'en'
     expect(screen.getByTestId('lang-val').textContent).toBe('en');
-    
+
     // Default t() should resolve key using English
     expect(screen.getByTestId('t-val').textContent).toBe('Start over');
   });
 
   test('default t() returns key if not found in English', () => {
-    render(<TestComponent translationKey="non_existent_key" as any />);
+    render(
+      <TestComponent
+        translationKey={"non_existent_key" as any}
+      />
+    );
     expect(screen.getByTestId('t-val').textContent).toBe('non_existent_key');
   });
 
@@ -45,9 +49,9 @@ describe('LanguageContext Unit Tests', () => {
   test('t() supports parameter substitution with params object', () => {
     render(
       <LanguageProvider lang="en">
-        <TestComponent 
-          translationKey="app_tailoredTo" 
-          params={{ country: 'Germany' }} 
+        <TestComponent
+          translationKey="app_tailoredTo"
+          params={{ country: 'Germany' }}
         />
       </LanguageProvider>
     );
@@ -58,9 +62,9 @@ describe('LanguageContext Unit Tests', () => {
   test('t() parameter substitution converts numbers/parameters correctly', () => {
     render(
       <LanguageProvider lang="en">
-        <TestComponent 
-          translationKey="cs_avgFootprint" 
-          params={{ n: 675 }} 
+        <TestComponent
+          translationKey="cs_avgFootprint"
+          params={{ n: 675 }}
         />
       </LanguageProvider>
     );
@@ -85,7 +89,9 @@ describe('LanguageContext Unit Tests', () => {
     // Since translations.ts is statically typed, let's test a key that does not exist in either, which should return the key itself.
     render(
       <LanguageProvider lang="hi">
-        <TestComponent translationKey="non_existent_key" as any />
+        <TestComponent
+          translationKey={"non_existent_key" as any}
+        />
       </LanguageProvider>
     );
 
