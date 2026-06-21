@@ -98,7 +98,7 @@ The objective is to make carbon awareness understandable, relatable, and actiona
 ### AI & Development Tools
 
 * Gemini API
-* Gemini 3.5 Flash
+* Gemini 2.5 Flash
 * Claude Opus
 * Bolt
 * Antigravity
@@ -230,6 +230,59 @@ The application was tested across multiple user flows, including:
 Special attention was given to handling unusually high or low consumption values to ensure stable output generation.
 
 ---
+## Testing & Quality Assurance
+
+The application includes automated unit and component testing using **Vitest**, **React Testing Library**, and **Jest DOM**.
+
+### Test Coverage
+
+| Metric     | Coverage |
+| ---------- | -------- |
+| Statements | 62.82%   |
+| Branches   | 71.29%   |
+| Functions  | 36.29%   |
+| Lines      | 65.18%   |
+
+### Test Results
+
+* 97 automated tests passing
+* 13 test suites passing
+* Carbon calculation validation
+* Translation and localization testing
+* Chatbot interaction testing
+* What-If Simulator testing
+* Component rendering tests
+* Error handling and fallback testing
+* Accessibility-focused component testing
+
+Testing was performed to ensure consistent behavior across different user flows, languages, and carbon-footprint scenarios.
+
+---
+
+## Security & Reliability
+
+Several security and resilience measures were implemented to improve application stability and protect user interactions.
+
+### Security Measures
+
+* Environment-variable based API key management
+* Input sanitization and validation
+* Safe handling of Gemini API responses
+* Graceful fallback behavior when AI services are unavailable
+* Error Boundary implementation for runtime error isolation
+* Content Security Policy (CSP) configuration
+* Secure client-side storage practices
+* API error handling for rate limits and invalid requests
+
+### Reliability Features
+
+* Retry logic for temporary API failures
+* Sample-response fallback mode when AI services are unavailable
+* Defensive error handling throughout the application
+* Production build verification before deployment
+
+No private API keys or secrets are stored in the repository.
+
 
 ## Performance & Efficiency
 
