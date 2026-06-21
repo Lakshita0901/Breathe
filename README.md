@@ -2,7 +2,7 @@
 # Breathe
 
 
-![Landing Page](Landing-page.png)
+![Landing Page](screenshots/Landing-page.png)
 
 **Every breath you take tells a story.**
 
@@ -43,18 +43,19 @@ Breathe transforms carbon emission data into relatable comparisons, personalized
 ---
 ## Product Showcase
 
+## Application Preview
+
 ### Landing Page
 
+![Landing Page](screenshots/Landing-page.png)
 
-![Landing Page](Landing-page.png)
-
-The onboarding experience introduces users to the platform and guides them through a personalized carbon-footprint journey.
+The landing page introduces the awareness-first carbon footprint journey.
 
 ---
 
 ### Country Selection
 
-![Country Selection](Country-selection.png)
+![Country Selection](screenshots/Country-selection.png)
 
 Users can select their country to receive localized emission factors and region-specific comparisons.
 
@@ -62,7 +63,7 @@ Users can select their country to receive localized emission factors and region-
 
 ### Multilingual Support
 
-![Language Selection](language-selection.png)
+![Language Selection](screenshots/language-selection.png)
 
 Breathe supports 12 languages, making sustainability insights accessible to a broader audience.
 
@@ -70,7 +71,7 @@ Breathe supports 12 languages, making sustainability insights accessible to a br
 
 ### Personalized Dashboard
 
-![Carbon Dashboard](Carbon-dashboard.png)
+![Carbon Dashboard](screenshots/Carbon-dashboard.png)
 
 The dashboard converts carbon emissions into understandable metrics, comparisons, and category-wise breakdowns.
 
@@ -78,7 +79,7 @@ The dashboard converts carbon emissions into understandable metrics, comparisons
 
 ### What-If Simulator
 
-![What If Simulator](what-if-simulator.png)
+![What If Simulator](screenshots/what-if-simulator.png)
 
 Users can explore how lifestyle changes impact their carbon footprint through interactive simulations.
 
@@ -86,27 +87,9 @@ Users can explore how lifestyle changes impact their carbon footprint through in
 
 ### AI Sustainability Assistant
 
-![Chatbot](chatbot.png)
-
-An AI-powered assistant provides personalized sustainability recommendations and answers user questions.
-=======
-![Landing Page](screenshots/landing-page.png)
-
-### Carbon Footprint Dashboard
-
-![Dashboard](screenshots/dashboard.png)
-
-### AI Sustainability Assistant
-
 ![Chatbot](screenshots/chatbot.png)
 
-### What-If Simulator
-
-![What If Simulator](screenshots/whatif.png)
-
-### Country Comparison
-
-![Country Comparison](screenshots/comparison.png)
+An AI-powered assistant provides personalized sustainability guidance and actionable recommendations.
 
 
 ## Supported Countries
