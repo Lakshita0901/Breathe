@@ -21,6 +21,20 @@ function getStoredAnswers(): QuizAnswers | null {
   }
 }
 
+/**
+ * WhatIfSimulator Component
+ * 
+ * An interactive simulation panel embedded in the Dashboard.
+ * Allows users to dynamically project carbon footprint modifications based on potential lifestyle changes.
+ * 
+ * Features:
+ * - Simulated options for switching transport modes, diet choices, or scaling home energy reductions.
+ * - Real-time baseline comparison calculations based on the user's initial answers (retrieved from localStorage).
+ * - Dynamic output showing absolute monthly savings and localized emotional equivalents.
+ * 
+ * @param props.countryCode - Current selected country code.
+ * @param props.currentTotal - User's calculated baseline carbon footprint.
+ */
 export default function WhatIfSimulator({ countryCode, currentTotal }: Props) {
   const { t, lang } = useLanguage();
   const country = countries[countryCode];

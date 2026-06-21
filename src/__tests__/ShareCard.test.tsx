@@ -70,4 +70,40 @@ describe('ShareCard Component', () => {
       expect(screen.getByText('Copied to clipboard!')).toBeInTheDocument();
     });
   });
+
+  test('fallback copy to clipboard when navigator.clipboard fails', async () => {
+    vi.stubGlobal('navigator', {
+      clipboard: {
+        writeText: vi.fn().mockRejectedValue(new Error('Clipboard error')),
+      },
+    });
+
+    document.execCommand = vi.fn().mockImplementation(() => true);
+
+    render(
+      <LanguageProvider lang="en">
+        <ShareCard
+          countryCode="IN"
+          breakdown={mockBreakdown}
+          regionId="metro"
+        />
+      </LanguageProvider>
+    );
+
+    const copyBtn = screen.getByRole('button', { name: /Copy shareable score card text/i });
+    fireEvent.click(copyBtn);
+
+    // navigator.clipboard should be called and fail
+    expect(globalThis.navigator.clipboard.writeText).toHaveBeenCalledTimes(1);
+
+    // fallback copy mechanism (document.execCommand) should be called
+    await waitFor(() => {
+      expect(document.execCommand).toHaveBeenCalledWith('copy');
+    });
+
+    // Button label should temporarily change to "Copied to clipboard!"
+    await waitFor(() => {
+      expect(screen.getByText('Copied to clipboard!')).toBeInTheDocument();
+    });
+  });
 });

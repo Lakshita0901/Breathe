@@ -12,6 +12,21 @@ interface Props {
   onBack: () => void;
 }
 
+/**
+ * Quiz Component
+ * 
+ * Renders a step-by-step questionnaire to gauge the user's daily/monthly choices.
+ * Steps include:
+ * 1. Transport option and weekly distance (miles/km depending on country).
+ * 2. Diet option (vegetarian, mixed, daily meat, etc.).
+ * 3. Monthly electricity usage (kWh).
+ * 4. Monthly spend on new items.
+ * 5. General residential region.
+ * 
+ * @param props.countryCode - Selected ISO country code.
+ * @param props.onSubmit - Callback function triggered upon submitting the final section.
+ * @param props.onBack - Callback function triggered when pressing the top-level back button.
+ */
 export default function Quiz({ countryCode, onSubmit, onBack }: Props) {
   const { t } = useLanguage();
   const country = countries[countryCode];

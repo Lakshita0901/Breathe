@@ -40,6 +40,24 @@ const CATEGORY_LABELS: Record<string, Record<string, string>> = {
   sw: { transport: 'Usafiri', food: 'Chakula', energy: 'Nishati', shopping: 'Ununuzi' },
 };
 
+/**
+ * ChatBot Component
+ * 
+ * A multilingual AI conversational coach powered by the Google Gemini API (gemini-2.5-flash).
+ * Provides real-time feedback and customized suggestions on the user's carbon footprint.
+ * 
+ * Features:
+ * - Context-aware system prompting customized to the user's country, language, region, and breakdown results.
+ * - Strict alignment/safety guardrails to block off-topic queries (replies only about sustainability/carbon).
+ * - Fallback to localized mock answers when API keys are not supplied or rate limits are reached.
+ * - Rate limiting (2-second message cooldown) to prevent rapid successive submissions.
+ * 
+ * @param props.countryCode - Current selected ISO country code (e.g. IN, DE, US).
+ * @param props.languageCode - Selected language code (e.g. en, hi, mr).
+ * @param props.breakdown - User's footprint calculation metrics.
+ * @param props.answers - Complete set of user answers.
+ * @param props.regionId - Selected region identifier (optional).
+ */
 export default function ChatBot({ countryCode, languageCode, breakdown, answers, regionId }: Props) {
   const { t } = useLanguage();
   const country = countries[countryCode];

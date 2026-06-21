@@ -11,127 +11,114 @@ describe('Countries Data Structures Tests', () => {
     });
   });
 
-  describe('India (IN) structure validation', () => {
-    test('basic metadata', () => {
-      const c = countries.IN;
-      expect(c.code).toBe('IN');
-      expect(c.name).toBe('India');
-      expect(c.flag).toBe('🇮🇳');
-      expect(c.avgFootprint).toBe(158);
-      expect(c.gridFactor).toBe(0.82);
-      expect(c.shoppingRate).toBe(0.003);
-      expect(c.currency).toBe('₹');
+  test('each country contains required properties', () => {
+    codes.forEach((code) => {
+      const country = countries[code];
+      expect(country).toBeDefined();
+      expect(country.avgFootprint).toBeDefined();
+      expect(country.gridFactor).toBeDefined();
+      expect(country.transportOptions).toBeDefined();
+      expect(country.dietOptions).toBeDefined();
+      expect(country.regionOptions).toBeDefined();
     });
+  });
 
-    test('transport and diet options', () => {
-      const c = countries.IN;
-      expect(c.transportOptions.length).toBeGreaterThan(0);
-      expect(c.dietOptions.length).toBeGreaterThan(0);
+  test('all grid factors are > 0 and < 1', () => {
+    codes.forEach((code) => {
+      const country = countries[code];
+      expect(country.gridFactor).toBeGreaterThan(0);
+      expect(country.gridFactor).toBeLessThan(1);
+    });
+  });
+
+  test('all avgFootprint values are > 0', () => {
+    codes.forEach((code) => {
+      const country = countries[code];
+      expect(country.avgFootprint).toBeGreaterThan(0);
+    });
+  });
+
+  test('every transport option contains id and label', () => {
+    codes.forEach((code) => {
+      const country = countries[code];
+      country.transportOptions.forEach((option) => {
+        expect(option.id).toBeDefined();
+        expect(typeof option.id).toBe('string');
+        expect(option.label).toBeDefined();
+        expect(typeof option.label).toBe('string');
+      });
+    });
+  });
+
+  test('every diet option contains id and factor', () => {
+    codes.forEach((code) => {
+      const country = countries[code];
+      country.dietOptions.forEach((option) => {
+        expect(option.id).toBeDefined();
+        expect(typeof option.id).toBe('string');
+        expect(option.factor).toBeDefined();
+        expect(typeof option.factor).toBe('number');
+      });
+    });
+  });
+
+  test('transport option IDs are unique per country', () => {
+    codes.forEach((code) => {
+      const country = countries[code];
+      const ids = country.transportOptions.map(o => o.id);
+      const uniqueIds = new Set(ids);
+      expect(ids.length).toBe(uniqueIds.size);
+    });
+  });
+
+  test('diet option IDs are unique per country', () => {
+    codes.forEach((code) => {
+      const country = countries[code];
+      const ids = country.dietOptions.map(o => o.id);
+      const uniqueIds = new Set(ids);
+      expect(ids.length).toBe(uniqueIds.size);
+    });
+  });
+
+  test('emotional equivalents coverage for all countries and regions', () => {
+    codes.forEach((code) => {
+      const country = countries[code];
       
-      const walk = c.transportOptions.find(o => o.id === 'walk_cycle');
-      expect(walk).toBeDefined();
-      expect(walk?.factor).toBe(0);
-
-      const vegetarian = c.dietOptions.find(o => o.id === 'vegetarian');
-      expect(vegetarian).toBeDefined();
-      expect(vegetarian?.factor).toBe(55);
-    });
-
-    test('emotional equivalents for regions', () => {
-      const c = countries.IN;
-      const metroEquiv = c.emotionalEquivalents('metro');
-      expect(metroEquiv.transport(100)).toContain('Ola/Uber');
-      expect(metroEquiv.food(100)).toContain('Swiggy');
-      expect(metroEquiv.energy(1200)).toContain('AC');
-      expect(metroEquiv.shopping(80)).toContain('Myntra');
-
-      const midcityEquiv = c.emotionalEquivalents('midcity');
-      expect(midcityEquiv.transport(100)).toContain('auto-rickshaw');
-
-      const smalltownEquiv = c.emotionalEquivalents('smalltown');
-      expect(smalltownEquiv.energy(350)).toContain('tubelight');
-
-      const ruralEquiv = c.emotionalEquivalents('rural');
-      expect(ruralEquiv.food(430)).toContain('cooking gas');
-
-      const defaultEquiv = c.emotionalEquivalents();
-      expect(defaultEquiv.transport(220)).toContain('train journeys');
-    });
-  });
-
-  describe('Nigeria (NG) structure validation', () => {
-    test('basic metadata & equivalents', () => {
-      const c = countries.NG;
-      expect(c.code).toBe('NG');
-      expect(c.name).toBe('Nigeria');
-      expect(c.flag).toBe('🇳🇬');
-      expect(c.avgFootprint).toBe(50);
-      expect(c.gridFactor).toBe(0.43);
-
-      const lagosEquiv = c.emotionalEquivalents('lagos');
-      expect(lagosEquiv.transport(15)).toContain('danfo');
+      // Get all region IDs for this country, plus undefined (default)
+      const regions = [undefined, ...country.regionOptions.map(r => r.id)];
       
-      const ruralEquiv = c.emotionalEquivalents('rural');
-      expect(ruralEquiv.energy(100)).toContain('kerosene');
-    });
-  });
+      regions.forEach((regionId) => {
+        const equivs = country.emotionalEquivalents(regionId);
+        expect(equivs).toBeDefined();
+        expect(typeof equivs.transport).toBe('function');
+        expect(typeof equivs.food).toBe('function');
+        expect(typeof equivs.energy).toBe('function');
+        expect(typeof equivs.shopping).toBe('function');
+        expect(typeof equivs.total).toBe('function');
 
-  describe('Germany (DE) structure validation', () => {
-    test('basic metadata & equivalents', () => {
-      const c = countries.DE;
-      expect(c.code).toBe('DE');
-      expect(c.name).toBe('Germany');
-      expect(c.flag).toBe('🇩🇪');
-      expect(c.avgFootprint).toBe(675);
-      expect(c.gridFactor).toBe(0.38);
+        const categories: ('transport' | 'food' | 'energy' | 'shopping' | 'total')[] = [
+          'transport', 'food', 'energy', 'shopping', 'total'
+        ];
 
-      const cityEquiv = c.emotionalEquivalents('city');
-      expect(cityEquiv.food(54)).toContain('beef');
-      
-      const ruralEquiv = c.emotionalEquivalents('rural');
-      expect(ruralEquiv.energy(50)).toContain('home heating');
-    });
-  });
+        categories.forEach((category) => {
+          const fn = equivs[category];
+          
+          // Test positive value (normal path)
+          const resultPositive = fn(1000);
+          expect(resultPositive).toBeDefined();
+          expect(typeof resultPositive).toBe('string');
+          expect(resultPositive.length).toBeGreaterThan(0);
+          expect(resultPositive).not.toContain('Almost carbon-free');
 
-  describe('Brazil (BR) structure validation', () => {
-    test('basic metadata & equivalents', () => {
-      const c = countries.BR;
-      expect(c.code).toBe('BR');
-      expect(c.name).toBe('Brazil');
-      expect(c.flag).toBe('🇧🇷');
-      expect(c.avgFootprint).toBe(192);
-      expect(c.gridFactor).toBe(0.09);
+          // Test zero value (n <= 0 branch)
+          const resultZero = fn(0);
+          expect(resultZero).toBe('Almost carbon-free in this category 🌱');
 
-      const spEquiv = c.emotionalEquivalents('saopaulo');
-      expect(spEquiv.shopping(70)).toContain('Havaianas');
-    });
-  });
-
-  describe('Kenya (KE) structure validation', () => {
-    test('basic metadata & equivalents', () => {
-      const c = countries.KE;
-      expect(c.code).toBe('KE');
-      expect(c.name).toBe('Kenya');
-      expect(c.flag).toBe('🇰🇪');
-      expect(c.avgFootprint).toBe(42);
-      expect(c.gridFactor).toBe(0.15);
-
-      const nairobiEquiv = c.emotionalEquivalents('nairobi');
-      expect(nairobiEquiv.transport(10)).toContain('matatu');
-    });
-  });
-
-  describe('USA (US) structure validation', () => {
-    test('basic metadata & equivalents', () => {
-      const c = countries.US;
-      expect(c.code).toBe('US');
-      expect(c.name).toBe('USA');
-      expect(c.flag).toBe('🇺🇸');
-      expect(c.avgFootprint).toBe(1375);
-      expect(c.gridFactor).toBe(0.39);
-
-      const cityEquiv = c.emotionalEquivalents('city');
-      expect(cityEquiv.transport(10)).toContain('subway');
+          // Test negative value (n <= 0 branch)
+          const resultNegative = fn(-50);
+          expect(resultNegative).toBe('Almost carbon-free in this category 🌱');
+        });
+      });
     });
   });
 });

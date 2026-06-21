@@ -11,6 +11,21 @@ interface Props {
   regionId?: string;
 }
 
+/**
+ * ShareCard Component
+ * 
+ * Renders a shareable score card preview presenting the user's carbon footprint.
+ * Provides a click-to-copy button that copies a pre-formatted, translated text summary
+ * suitable for sharing on LinkedIn or other professional networks.
+ * 
+ * Features:
+ * - Direct copy via modern navigator.clipboard API.
+ * - Textarea fallback mechanism to ensure capability in older browsers or restricted iframe environments.
+ * 
+ * @param props.countryCode - ISO country code representing the user's country.
+ * @param props.breakdown - User's calculated monthly footprint metrics.
+ * @param props.regionId - User's region context identifier (optional).
+ */
 export default function ShareCard({ countryCode, breakdown, regionId }: Props) {
   const { t, lang } = useLanguage();
   const localCountryName = t(`country_${countryCode}` as TranslationKey);

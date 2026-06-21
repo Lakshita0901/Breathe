@@ -18,6 +18,26 @@ interface Props {
   onStartOver: () => void;
 }
 
+/**
+ * Dashboard Component
+ * 
+ * The primary results view rendered after quiz completion.
+ * Displays calculations, category-level assessments, comparison charts, and actionable modules.
+ * 
+ * Includes:
+ * - Overall carbon footprint score (kg CO2) and comparative mood indicator.
+ * - Interactive comparison bars benchmarking user footprint against the country average and Paris Target.
+ * - Visual category cards for transport, food, energy, and shopping, with localized emotional equivalencies.
+ * - Integration with the WhatIfSimulator and ChatBot coaching components.
+ * - Options to persist results locally to the user's history database.
+ * 
+ * @param props.countryCode - User's selected country code.
+ * @param props.languageCode - Selected translation language code.
+ * @param props.breakdown - User's monthly footprint metrics.
+ * @param props.answers - User's original quiz responses.
+ * @param props.regionId - Optional region option ID.
+ * @param props.onStartOver - Callback to clear state and redirect back to the LandingHero.
+ */
 export default function Dashboard({ countryCode, languageCode, breakdown, answers, regionId, onStartOver }: Props) {
   const { t, lang } = useLanguage();
   const country = countries[countryCode];

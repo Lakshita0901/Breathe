@@ -26,6 +26,15 @@ export interface FootprintBreakdown {
 
 const PARIS_TARGET = 167;
 
+/**
+ * Calculates monthly carbon footprint breakdown including transport, food, energy, and shopping.
+ * Automatically handles local country differences in grid factors, average footprints, and currency.
+ * Assigns a comparative user mood indicator based on the percentage of the country average.
+ * 
+ * @param countryCode - ISO country code representing the target country (e.g. IN, NG, US)
+ * @param answers - User responses containing specific choices for transport, diet, energy, and shopping
+ * @returns Complete carbon footprint breakdown with category values, total footprint, and comparative statistics
+ */
 export function calculateFootprint(countryCode: CountryCode, answers: QuizAnswers): FootprintBreakdown {
   const country = countries[countryCode];
   const transportOption = country.transportOptions.find((o) => o.id === answers.transportId);
@@ -67,6 +76,15 @@ export function calculateFootprint(countryCode: CountryCode, answers: QuizAnswer
   return { transport, food, energy, shopping, total, pctOfAvg, mood, moodEmoji, moodText, highestCategory };
 }
 
+/**
+ * Calculates scaled percentage widths and raw values for comparing the user's footprint
+ * against the country average and the Paris Climate Agreement target.
+ * Scaled proportionally relative to the maximum of the three values.
+ * 
+ * @param breakdown - The user's calculated footprint breakdown
+ * @param countryCode - ISO country code representing the user's country
+ * @returns Object containing comparative percentage widths and raw footprint values
+ */
 export function getComparisonBars(breakdown: FootprintBreakdown, countryCode: CountryCode) {
   const country = countries[countryCode];
   const max = Math.max(breakdown.total, country.avgFootprint, PARIS_TARGET);
@@ -80,6 +98,18 @@ export function getComparisonBars(breakdown: FootprintBreakdown, countryCode: Co
   };
 }
 
+/**
+ * Translates a carbon footprint value in kilograms into a tangible, emotional local equivalent
+ * (e.g., equivalent number of auto-rickshaw rides, burgers, or ceiling fan hours).
+ * Handles internationalization (translations) and falls back to default values if templates are missing.
+ * 
+ * @param countryCode - ISO country code representing the target country
+ * @param category - Footprint category or 'total'
+ * @param kg - Carbon footprint value in kilograms
+ * @param regionId - Optional region identifier to customize equivalent relative to urban/rural context
+ * @param lang - Target language code for translation dictionary lookup (default: 'en')
+ * @returns A translated string presenting the footprint in tangible emotional terms
+ */
 export function getEmotionalEquivalent(
   countryCode: CountryCode,
   category: 'transport' | 'food' | 'energy' | 'shopping' | 'total',
@@ -121,6 +151,18 @@ export function getEmotionalEquivalent(
   return template.replace(/\{n\}/g, String(n));
 }
 
+/**
+ * Simulates the environmental impact of potential lifestyle changes in real time.
+ * Re-calculates the footprint with hypothetical parameters and computes the savings.
+ * 
+ * @param countryCode - ISO country code representing the user's country
+ * @param answers - Current quiz answers to use as baseline
+ * @param newTransportId - Hypothetical transport option ID (optional)
+ * @param newDietId - Hypothetical diet option ID (optional)
+ * @param energyReductionPct - Hypothetical energy usage reduction percentage (0 to 50, optional)
+ * @param lang - Target language code for translation lookup (default: 'en')
+ * @returns Simulated monthly carbon total, absolute savings in kg, and localized emotional savings equivalent text
+ */
 export function simulateWhatIf(
   countryCode: CountryCode,
   answers: QuizAnswers,
