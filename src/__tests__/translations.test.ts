@@ -18,6 +18,18 @@ describe('Translations Tests', () => {
     expect(Object.keys(translations).length).toBe(12);
   });
 
+  test('all languages have all translation keys that exist in English', () => {
+    const expectedLangs = ['en', 'hi', 'mr', 'ta', 'te', 'yo', 'ha', 'ig', 'de', 'pt', 'es', 'sw'];
+    const enKeys = Object.keys(translations.en);
+    expectedLangs.forEach((lang) => {
+      const dict = translations[lang];
+      enKeys.forEach((key) => {
+        expect(dict[key as keyof typeof dict]).toBeDefined();
+        expect(typeof dict[key as keyof typeof dict]).toBe('string');
+      });
+    });
+  });
+
   test('Hindi translation for quiz_transport exists', () => {
     expect(translations.hi.quiz_transport).toBeDefined();
     expect(translations.hi.quiz_transport).toBe('परिवहन');
