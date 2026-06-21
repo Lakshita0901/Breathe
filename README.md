@@ -45,6 +45,7 @@ Breathe transforms carbon emission data into relatable comparisons, personalized
 
 ### Landing Page
 
+
 ![Landing Page](Landing-page.png)
 
 The onboarding experience introduces users to the platform and guides them through a personalized carbon-footprint journey.
@@ -88,6 +89,25 @@ Users can explore how lifestyle changes impact their carbon footprint through in
 ![Chatbot](chatbot.png)
 
 An AI-powered assistant provides personalized sustainability recommendations and answers user questions.
+=======
+![Landing Page](screenshots/landing-page.png)
+
+### Carbon Footprint Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+### AI Sustainability Assistant
+
+![Chatbot](screenshots/chatbot.png)
+
+### What-If Simulator
+
+![What If Simulator](screenshots/whatif.png)
+
+### Country Comparison
+
+![Country Comparison](screenshots/comparison.png)
+
 
 ## Supported Countries
 
@@ -193,6 +213,21 @@ AI accelerated implementation, while the overall product vision, awareness-focus
 A key objective was transforming carbon data into relatable everyday experiences rather than presenting raw numbers.
 
 ---
+## Prompt Engineering Highlights
+
+Breathe was developed using an iterative prompt-engineering workflow.
+
+Key outcomes achieved through prompting:
+
+- Carbon contextualization framework
+- Multilingual localization strategy
+- Country-specific emission modeling
+- AI chatbot safety guardrails
+- Emotional translation system
+- What-If simulation experience
+- UI refinement and usability improvements
+
+---
 ## Prompt Engineering Evidence
 
 ### Initial Product Vision
@@ -262,6 +297,28 @@ Carbon Footprint Calculation Engine
 ```
 
 ---
+## Repository Structure
+
+```text
+src/
+├── components/
+├── contexts/
+├── data/
+├── utils/
+├── __tests__/
+├── App.tsx
+└── main.tsx
+
+public/
+screenshots/
+
+CONTRIBUTING.md
+SECURITY.md
+LICENSE
+README.md
+```
+
+---
 
 ## Testing
 
@@ -286,22 +343,24 @@ The application includes automated unit and component testing using **Vitest**, 
 
 | Metric     | Coverage |
 | ---------- | -------- |
-| Statements | 62.82%   |
-| Branches   | 71.29%   |
-| Functions  | 36.29%   |
-| Lines      | 65.18%   |
+| Statements | 97.43% |
+| Branches   | 89.90% |
+| Functions  | 98.38% |
+| Lines      | 98.57% |
 
 ### Test Results
 
-* 97 automated tests passing
-* 13 test suites passing
-* Carbon calculation validation
-* Translation and localization testing
-* Chatbot interaction testing
-* What-If Simulator testing
-* Component rendering tests
-* Error handling and fallback testing
-* Accessibility-focused component testing
+- 135 automated tests passing
+- 17 test suites passing
+- Calculator engine testing
+- Security and sanitization testing
+- Translation validation
+- Country configuration validation
+- Chatbot interaction testing
+- What-If simulator testing
+- Component rendering tests
+- Accessibility-focused tests
+- Error handling and fallback testing
 
 Testing was performed to ensure consistent behavior across different user flows, languages, and carbon-footprint scenarios.
 
@@ -310,6 +369,16 @@ Testing was performed to ensure consistent behavior across different user flows,
 ## Security & Reliability
 
 Several security and resilience measures were implemented to improve application stability and protect user interactions.
+
+### Security Highlights
+
+- Input sanitization against XSS attacks
+- API key validation before Gemini requests
+- Environment-variable based secret management
+- Content Security Policy configuration
+- Graceful AI failure handling
+- Error Boundary protection
+- Secure localStorage usage
 
 ### Security Measures
 
@@ -351,11 +420,26 @@ Breathe was designed to be accessible to a diverse audience.
 * Support for 12 languages
 * Support for users across 6 countries
 * Mobile-first responsive design
+* Keyboard accessible controls
+* Screen-reader friendly UI
+* Semantic HTML structure
 * Clear information hierarchy
+* Accessible color contrast
+* Responsive layouts for different screen sizes
 * Readable content and intuitive navigation
 * Sustainability concepts explained using relatable examples
 
 The goal is to make carbon awareness understandable and actionable for users from different backgrounds.
+
+---
+## Performance Optimizations
+
+- Lazy rendering where appropriate
+- Optimized React component structure
+- Minimal API requests
+- Lightweight Vite production builds
+- Cached localStorage data
+- Responsive mobile-first design
 
 ---
 
@@ -392,6 +476,19 @@ npm run build
 ```
 
 ---
+## Development Quality
+
+The project follows:
+
+- TypeScript-based development
+- Automated testing with Vitest
+- React Testing Library component tests
+- ESLint code quality checks
+- Reusable component architecture
+- Documented contribution guidelines
+- Security review documentation
+
+---
 
 ## Prompt Wars Submission
 
@@ -417,6 +514,13 @@ Submission Includes:
 * Regional sustainability benchmarks
 * Advanced AI coaching
 * Additional countries and languages
+
+---
+## Project Documentation
+
+- CONTRIBUTING.md
+- SECURITY.md
+- LICENSE
 
 ---
 
