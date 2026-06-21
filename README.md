@@ -1,7 +1,8 @@
 
-
-
 # Breathe
+
+
+![Landing Page](Landing-page.png)
 
 **Every breath you take tells a story.**
 
@@ -40,6 +41,53 @@ Breathe transforms carbon emission data into relatable comparisons, personalized
 * Available in 12 languages
 
 ---
+## Product Showcase
+
+### Landing Page
+
+![Landing Page](Landing-page.png)
+
+The onboarding experience introduces users to the platform and guides them through a personalized carbon-footprint journey.
+
+---
+
+### Country Selection
+
+![Country Selection](Country-selection.png)
+
+Users can select their country to receive localized emission factors and region-specific comparisons.
+
+---
+
+### Multilingual Support
+
+![Language Selection](language-selection.png)
+
+Breathe supports 12 languages, making sustainability insights accessible to a broader audience.
+
+---
+
+### Personalized Dashboard
+
+![Carbon Dashboard](Carbon-dashboard.png)
+
+The dashboard converts carbon emissions into understandable metrics, comparisons, and category-wise breakdowns.
+
+---
+
+### What-If Simulator
+
+![What If Simulator](what-if-simulator.png)
+
+Users can explore how lifestyle changes impact their carbon footprint through interactive simulations.
+
+---
+
+### AI Sustainability Assistant
+
+![Chatbot](chatbot.png)
+
+An AI-powered assistant provides personalized sustainability recommendations and answers user questions.
 
 ## Supported Countries
 
